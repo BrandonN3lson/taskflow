@@ -1,0 +1,31 @@
+.App {
+    font-family: "DM Sans", sans-serif;
+    background-color: #1E1E2E;
+    min-height: 100vh;
+  }
+
+h1, h2, h3, h4, h5, h6, p{
+  color: #fff;
+}
+  
+.Main {
+  padding-top: 80px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+a {
+  color: #fff;
+  transition: color ease-in-out 0.3s;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+a:hover {
+  color: #FF4081;
+  transition: color ease-in-out 0.3s;
+}

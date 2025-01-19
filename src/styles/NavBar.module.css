@@ -1,0 +1,28 @@
+.NavBar {
+    background-color:  #2D2D2D;
+}
+
+.NavLink {
+    margin-right: 1rem;
+}
+
+.NavbarToggle  {
+    border-color: #fff !important;
+}
+
+.ToggleNavLinks {
+    margin-top: 0.5rem;
+}
+
+.Title {
+    color: #fff !important;
+}
+
+.User {
+    color: #fff;
+    margin: 0;
+}
+
+.Active {
+    color: #FF4081;
+}
