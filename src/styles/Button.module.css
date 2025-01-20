@@ -1,0 +1,35 @@
+.Button {
+    background-color: #ff4081;
+    color: #000;
+    border-color: #711c39;
+    -webkit-box-shadow: inset 0px 0px 10px 2px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: inset 0px 0px 10px 2px rgba(0, 0, 0, 0.75);
+    box-shadow: inset 0px 0px 10px 2px rgba(0, 0, 0, 0.75);
+}
+
+.Button:hover {
+    background-color: #ad0f44;
+    border-color: #ff4081;
+    color: #fff;
+}
+
+.Button:focus {
+    background-color: #ad0f44;
+    border-color: #ff4081;
+    color: #fff;
+    box-shadow: 0 0 5px #ff4081;
+    -webkit-box-shadow: inset 0px 0px 20px 5px rgba(255, 255, 255, 0.25);
+    -moz-box-shadow: inset 0px 0px 20px 5px rgba(255, 255, 255, 0.25);
+    box-shadow: inset 0px 0px 20px 5px rgba(255, 255, 255, 0.25);
+}
+
+.Button:active {
+    font-size: 15px;
+    background-color: #8c0e3a !important;
+    border-color: #ff4081 !important;
+    color: #fff !important;
+    box-shadow: none !important;
+    -webkit-box-shadow: inset 0px 0px 10px 2px rgba(255, 255, 255, 0.4) !important;
+    -moz-box-shadow: inset 0px 0px 10px 2px rgba(255, 255, 255, 0.4) !important;
+    box-shadow: inset 0px 0px 10px 2px rgba(255, 255, 255, 0.4) !important;
+}

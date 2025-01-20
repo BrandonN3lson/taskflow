@@ -1,0 +1,55 @@
+.Container {
+    width: 60%;
+    padding: 1.5rem;
+    margin: 0 auto; /* Center the container horizontally */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center content vertically */
+    align-items: center;
+    border-radius: 1rem;
+    background-color: #2d2d2d;
+    color: #fff;
+    -webkit-box-shadow: inset 0px 0px 20px 5px rgba(255, 255, 255, 0.25);
+    -moz-box-shadow: inset 0px 0px 20px 5px rgba(255, 255, 255, 0.25);
+    box-shadow: inset 0px 0px 20px 5px rgba(255, 255, 255, 0.25);
+}
+
+.Form {
+    width: 80%;
+    margin: 1rem;
+}
+
+.FormText {
+    margin-bottom: 1rem;
+}
+
+.FormInput {
+    width: 100%;
+}
+
+.FormInput:focus {
+    border: 2px solid #ff4081 !important;
+    box-shadow: 0 0 5px #ff4081 !important;
+}
+
+.Link {
+    font-size: 16px;
+}
+
+
+@media screen and (max-width: 768px) {
+    .Container {
+        width: 90% !important;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .Container {
+        width: 95% !important;
+    }
+
+    .Form {
+        width: 95% !important;
+    }
+}
+
