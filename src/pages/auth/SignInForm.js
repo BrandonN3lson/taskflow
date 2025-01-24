@@ -1,13 +1,53 @@
-import React from "react";
-import { Container, Button, Form } from "react-bootstrap";
+import React, { useState } from "react";
+import { Container, Button, Form, Alert } from "react-bootstrap";
 import styles from "../../styles/SignInUpForm.module.css";
 import BtnStyles from "../../styles/Button.module.css";
-import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import { Link, useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import axios from "axios";
+import { useSetCurrentUser } from "../../context/CurrentUserContext";
 
 const SignInForm = () => {
+    const setCurrentUser = useSetCurrentUser();
+
+    const [signInData, setSignInData] = useState({
+        username: "",
+        password: "",
+    });
+    const [errors, setErrors] = useState({});
+
+    const history = useHistory();
+
+    const handleChange = (e) => {
+        setSignInData({
+            ...signInData,
+            [e.target.name]: e.target.value,
+        });
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const { data } = await axios.post(
+                "/dj-rest-auth/login/",
+                signInData
+            );
+            const token = data.key;
+            localStorage.setItem("authToken", token); // Store token locally
+            // Attach token to axios headers for future requests
+            axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+            setCurrentUser(data.user);
+            history.push("/");
+        } catch (error) {
+            console.log(error.response?.data);
+            setErrors(error.response?.data);
+        }
+    };
+
+    const { username, password } = signInData;
+
     return (
         <Container className={` text-center ${styles.Container}`}>
-            <Form className={styles.Form}>
+            <Form className={styles.Form} onSubmit={handleSubmit}>
                 <Form.Text className={`text-center ${styles.FormText}`}>
                     <h1>Sign In</h1>
                 </Form.Text>
@@ -18,8 +58,15 @@ const SignInForm = () => {
                         type="text"
                         placeholder="Username"
                         name="username"
+                        value={username}
+                        onChange={handleChange}
                     />
                 </Form.Group>
+                {errors.username?.map((message, idx) => (
+                    <Alert variant="warning" key={idx}>
+                        {message}
+                    </Alert>
+                ))}
 
                 <Form.Group className="mb-3" controlId="password">
                     <Form.Label className="d-none">Password</Form.Label>
@@ -28,15 +75,22 @@ const SignInForm = () => {
                         type="password"
                         placeholder="Password"
                         name="password"
+                        value={password}
+                        onChange={handleChange}
                     />
                 </Form.Group>
+                {errors.password?.map((message, idx) => (
+                    <Alert variant="warning" key={idx}>
+                        {message}
+                    </Alert>
+                ))}
 
                 <Container>
                     <Form.Text className="mb-2">
-                    Don't have an account?
-                    <Link className={styles.Link} to="/signup">
-                      <span> Sign up</span>
-                    </Link>
+                        Don't have an account?
+                        <Link className={styles.Link} to="/signup">
+                            <span> Sign up</span>
+                        </Link>
                     </Form.Text>
                 </Container>
 
