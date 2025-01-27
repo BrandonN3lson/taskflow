@@ -3,53 +3,81 @@ import { Container, Nav, Navbar } from "react-bootstrap";
 import { NavLink } from "react-router-dom/cjs/react-router-dom.min";
 
 import styles from "../styles/NavBar.module.css";
-import { useCurrentUser } from "../context/CurrentUserContext";
+import { useCurrentUser, useSetCurrentUser } from "../context/CurrentUserContext";
+import axios from "axios";
 
 export const NavBar = () => {
     const currentUser = useCurrentUser();
-    const loggedIn = <>{currentUser?.username}</>;
+    const setCurrentUser = useSetCurrentUser()
+
+    const handleSignOut = async () => {
+        try {
+            await axios.post('/dj-rest-auth/logout/')
+            setCurrentUser(null)
+        } catch (error) {
+            console.log(error)            
+        }
+    }
+
+    const loggedIn = (
+        <>
+            <NavLink
+                exact
+                className={styles.NavLink}
+                activeClassName={styles.Active}
+                to="/"
+            >
+                Dashboard
+            </NavLink>
+            <NavLink
+                className={styles.NavLink}
+                activeClassName={styles.Active}
+                to="/tasks"
+            >
+                Tasks
+            </NavLink>
+            <NavLink
+                className={styles.NavLink}
+                activeClassName={styles.Active}
+                to="/add-task"
+            >
+                Add Task
+            </NavLink>
+
+            <NavLink
+                className={styles.NavLink}
+                to="/"
+                onClick={handleSignOut}
+            >
+                Log out
+            </NavLink>
+        </>
+    );
+    const loggedOut = (
+        <>
+            <NavLink
+                className={styles.NavLink}
+                activeClassName={styles.Active}
+                to="/signup"
+            >
+                Sign up
+            </NavLink>
+            <NavLink
+                className={styles.NavLink}
+                activeClassName={styles.Active}
+                to="/signin"
+            >
+                Sign in
+            </NavLink>
+        </>
+    );
     return (
         <Navbar expand="md" fixed="top" className={`px-3 ${styles.NavBar}`}>
             <Container fluid width="100%">
                 <Navbar.Toggle aria-controls="navbar" className="navbar-dark" />
                 <div>
                     <Nav className="text-center d-none d-md-flex">
-                        <NavLink
-                            exact
-                            className={styles.NavLink}
-                            activeClassName={styles.Active}
-                            to="/"
-                        >
-                            Dashboard
-                        </NavLink>
-                        <NavLink
-                            className={styles.NavLink}
-                            activeClassName={styles.Active}
-                            to="/tasks"
-                        >
-                            Tasks
-                        </NavLink>
-                        <NavLink
-                            className={styles.NavLink}
-                            activeClassName={styles.Active}
-                            to="/signup"
-                        >
-                            Sign up
-                        </NavLink>
-                        <NavLink
-                            className={styles.NavLink}
-                            activeClassName={styles.Active}
-                            to="/signin"
-                        >
-                            Sign in
-                        </NavLink>
-                        <NavLink
-                            className={styles.NavLink}
-                            activeClassName={styles.Active}
-                            to="/logout"
-                        >
-                            Log out
-                        </NavLink>
+                        {currentUser ? loggedIn : loggedOut}
                     </Nav>
                 </div>
 
@@ -62,7 +90,7 @@ export const NavBar = () => {
                 <div>
                     <Navbar.Text>
                         {currentUser ? (
-                            loggedIn
+                            <p className={styles.User}>{currentUser?.username}</p>
                         ) : (
                             <p className={styles.User}>please log in</p>
                         )}
@@ -72,42 +100,7 @@ export const NavBar = () => {
 
             <Navbar.Collapse id="navbar">
                 <Nav className=" py-3 text-left d-md-none">
-                    <NavLink
-                        exact
-                        className={styles.ToggleNavLinks}
-                        activeClassName={styles.Active}
-                        to="/"
-                    >
-                        Dashboard
-                    </NavLink>
-                    <NavLink
-                        className={styles.ToggleNavLinks}
-                        activeClassName={styles.Active}
-                        to="/tasks"
-                    >
-                        Tasks
-                    </NavLink>
-                    <NavLink
-                        className={styles.ToggleNavLinks}
-                        activeClassName={styles.Active}
-                        to="/signup"
-                    >
-                        Sign up
-                    </NavLink>
-                    <NavLink
-                        className={styles.ToggleNavLinks}
-                        activeClassName={styles.Active}
-                        to="/signin"
-                    >
-                        Sign in
-                    </NavLink>
-                    <NavLink
-                        className={styles.ToggleNavLinks}
-                        activeClassName={styles.Active}
-                        to="/logout"
-                    >
-                        Log out
-                    </NavLink>
+                    {currentUser ? loggedIn : loggedOut}
                 </Nav>
             </Navbar.Collapse>
         </Navbar>

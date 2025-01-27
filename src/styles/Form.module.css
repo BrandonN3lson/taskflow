@@ -1,0 +1,36 @@
+
+.Form {
+    width: 80%;
+    margin: 1rem;
+}
+
+.FormText {
+    margin-bottom: 1rem;
+}
+
+.FormInput {
+    width: 100%;
+}
+
+.FormInput:focus {
+    border: 2px solid #ff4081 !important;
+    box-shadow: 0 0 5px #ff4081 !important;
+}
+
+.Link {
+    font-size: 16px;
+    
+}
+
+Form > input[type=radio]:checked {
+    background-color: #ff4081 !important;
+    border-color: #ff4081 !important;
+}
+
+@media screen and (max-width: 576px) {
+
+    .Form {
+        width: 95% !important;
+    }
+} 
+

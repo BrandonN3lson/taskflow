@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Container, Button, Form, Alert } from "react-bootstrap";
 
-import styles from "../../styles/SignInUpForm.module.css";
+import styles from "../../styles/Form.module.css";
+import ContainerStyles from '../../styles/Container.module.css'
 import BtnStyles from "../../styles/Button.module.css";
 import { Link, useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import axios from "axios";
@@ -35,7 +36,7 @@ const SignUpForm = () => {
     }
 
     return (
-        <Container className={` text-center ${styles.Container}`}>
+        <Container className={` text-center ${ContainerStyles.Container}`}>
             <Form className={styles.Form} onSubmit={handleSubmit}>
                 <Form.Text className={`text-center ${styles.FormText}`}>
                     <h1>Sign Up</h1>
