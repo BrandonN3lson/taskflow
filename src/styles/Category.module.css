@@ -13,6 +13,11 @@
     box-shadow: inset 0px 0px 20px 5px rgba(255, 255, 255, 0.25);
 }
 
+.CategoryHeader {
+    font-size: 1.5rem;
+    border-bottom: 1px solid #fff;
+}
+
 .Category {
     width: 50%;
 }
@@ -49,14 +54,6 @@
     color: #ff4081; /* Optional: Change hover color */
 }
 
-.CategoryText {
-    border-bottom: 1px solid #fff;
-    transition: 0.3s;
-}
-.CategoryText:hover{
-    border-color: #FF4081;
-    
-}
 
 .CategoryText {
     font-size: 1rem !important;

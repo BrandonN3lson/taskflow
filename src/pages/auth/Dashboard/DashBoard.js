@@ -5,38 +5,47 @@ import { useEffect, useState } from "react";
 import { axiosRes } from "../../../api/axiosDefault";
 
 const DashBoard = () => {
-  const [tasks, setTasks] = useState()
-  const [selectedCategory, setSelectedCategory] = useState("All")
+    const [tasks, setTasks] = useState();
+    const [selectedCategory, setSelectedCategory] = useState("All");
+    const [selectedCategoryId, setSelectedCategoryId] = useState(null)
 
-  const fetchTasks = async (categoryId = null) => {
-    try {
-      const url = categoryId ? `/tasks/?category_id=${categoryId}/` : `/tasks/`
-      const {data} = axiosRes.get(url);
-      setTasks(data.results)
-    } catch (error) {
-      console.log(error)
-    }
-  }
+    const fetchTasks = async () => {
+        try {
+            const { data } = await axiosRes.get(`/tasks/`);
+            setTasks(data.results);
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
-  useEffect(() => {
-    fetchTasks();
-  }, [])
+    useEffect(() => {
+        fetchTasks();
+    }, []);
 
-  const handleCategorySelect = (categoryName, categoryId) => {
-    setSelectedCategory(categoryName);
-    fetchTasks(categoryId)
-  }
+    const handleCategorySelect = (categoryName, categoryId) => {
+        setSelectedCategory(categoryName);
+        setSelectedCategoryId(categoryId)
+        fetchTasks(categoryId);
+    };
 
     return (
         <Row className="justify-content-between">
             <Col md="4" lg="3" className="d-block d-md-none">
-                <Category sm selectedCategory={selectedCategory} onCategorySelect={handleCategorySelect} />
+                <Category
+                    sm
+                    selectedCategory={selectedCategory}
+                    onCategorySelect={handleCategorySelect}
+                />
             </Col>
             <Col md="4" lg="3" className="d-none d-md-block">
-                <Category md />
+                <Category
+                    md
+                    selectedCategory={selectedCategory}
+                    onCategorySelect={handleCategorySelect}
+                />
             </Col>
             <Col md="8" lg="9">
-                <Tasks tasks={tasks}/>
+                <Tasks tasks={tasks} selectedCategoryId={selectedCategoryId} />
             </Col>
         </Row>
     );

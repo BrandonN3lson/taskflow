@@ -1,36 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { Col, Container, Dropdown, Row } from "react-bootstrap";
+import React from "react";
+import { Container, Dropdown, Row } from "react-bootstrap";
 import styles from "../styles/Category.module.css";
-import { Link, useHistory } from "react-router-dom/cjs/react-router-dom.min";
-import { useSetCurrentUser } from "../context/CurrentUserContext";
-import { axiosRes } from "../api/axiosDefault";
+import { useCategories } from "../context/CategoryContext";
 
 const Category = ({ sm, md, selectedCategory, onCategorySelect }) => {
-    const currentUser = useSetCurrentUser();
-    const [categories, setCategories] = useState();
-    const history = useHistory();
-
-    useEffect(() => {
-        let isMounted = true;
-        const fetchCategories = async () => {
-            try {
-                const { data } = await axiosRes.get("/categories/");
-                if (isMounted) {
-                    setCategories(data.results);
-                }
-            } catch (error) {
-                console.log(error);
-            }
-        };
-
-        const timer = setTimeout(() => {
-            fetchCategories();
-        }, 500);
-        return () => {
-            isMounted = false;
-            clearTimeout(timer);
-        };
-    }, [currentUser, history]);
+    const categories = useCategories();
 
     const handleSelect = (categoryName, categoryId) => {
         onCategorySelect(categoryName, categoryId);
@@ -81,11 +55,25 @@ const Category = ({ sm, md, selectedCategory, onCategorySelect }) => {
             {md && (
                 <Container className={styles.CategoryContainer}>
                     <div className={`${styles.Category}`}>
+                        <h2 className={styles.CategoryHeader}>Category</h2>
+
+                        <Row
+                            className={`align-items-center justify-content-center ${styles.Row}`}
+                            onClick={() => handleSelect("All", null)}
+                        >
+                            <p className={`${styles.CategoryText}`}>All</p>
+                        </Row>
+
                         {categories?.map((category) => (
                             <Row
-                                as={Link}
                                 key={category.id}
                                 className={`align-items-center justify-content-center ${styles.Row}`}
+                                onClick={() =>
+                                    handleSelect(
+                                        category.name,
+                                        category.id
+                                    )
+                                }
                             >
                                 <p className={`${styles.CategoryText}`}>
                                     {category.name}

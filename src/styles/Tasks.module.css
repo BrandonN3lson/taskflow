@@ -20,6 +20,11 @@
     font-size: 16px;
     margin: 1rem 0 0 0;
 }
+.RowTitle{
+    color: #FF4081;
+    border-bottom: 1px solid #FF4081;
+    
+}
 
 .Row {
     border-bottom: 1px solid #fff;

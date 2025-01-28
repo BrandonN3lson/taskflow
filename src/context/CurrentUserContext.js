@@ -26,19 +26,54 @@ export const CurrentUserProvider = ({ children }) => {
     handleMount();
   }, []);
 
+  // useMemo(() => {
+  //   axiosReq.interceptors.request.use(
+  //     async (config) => {
+  //       try {
+  //         await axios.post("/dj-rest-auth/token/refresh/");
+  //       } catch (err) {
+  //         setCurrentUser((prevCurrentUser) => {
+  //           if (prevCurrentUser) {
+  //             history.push("/signin");
+  //           }
+  //           return null;
+  //         });
+  //         return config;
+  //       }
+  //       return config;
+  //     },
+  //     (err) => {
+  //       return Promise.reject(err);
+  //     }
+  //   );
+
+  //   axiosRes.interceptors.response.use(
+  //     (response) => response,
+  //     async (err) => {
+  //       if (err.response?.status === 401) {
+  //         try {
+  //           await axios.post("/dj-rest-auth/token/refresh/");
+  //         } catch (err) {
+  //           setCurrentUser((prevCurrentUser) => {
+  //             if (prevCurrentUser) {
+  //               history.push("/signin");
+  //             }
+  //             return null;
+  //           });
+  //         }
+  //         return axios(err.config);
+  //       }
+  //       return Promise.reject(err);
+  //     }
+  //   );
+  // }, [history]);
+
   useMemo(() => {
     axiosReq.interceptors.request.use(
-      async (config) => {
-        try {
-          await axios.post("/dj-rest-auth/token/refresh/");
-        } catch (err) {
-          setCurrentUser((prevCurrentUser) => {
-            if (prevCurrentUser) {
-              history.push("/signin");
-            }
-            return null;
-          });
-          return config;
+      (config) => {
+        const accessToken = localStorage.getItem('my-app-auth'); // Get the access token from localStorage
+        if (accessToken) {
+          config.headers['Authorization'] = `Bearer ${accessToken}`;
         }
         return config;
       },
@@ -51,22 +86,27 @@ export const CurrentUserProvider = ({ children }) => {
       (response) => response,
       async (err) => {
         if (err.response?.status === 401) {
+          const refreshToken = localStorage.getItem('my-refresh-token'); // Get the refresh token from localStorage
           try {
-            await axios.post("/dj-rest-auth/token/refresh/");
-          } catch (err) {
-            setCurrentUser((prevCurrentUser) => {
-              if (prevCurrentUser) {
-                history.push("/signin");
-              }
-              return null;
-            });
+            // Send the refresh token to get a new access token
+            const { data } = await axios.post("/dj-rest-auth/token/refresh/", { refresh: refreshToken });
+            // Save the new access token
+            localStorage.setItem('my-app-auth', data.access);
+            err.config.headers['Authorization'] = `Bearer ${data.access}`;
+            return axios(err.config);
+          } catch (refreshError) {
+            setCurrentUser(null);
+            history.push("/signin");
+            return Promise.reject(refreshError);
           }
-          return axios(err.config);
         }
         return Promise.reject(err);
       }
     );
   }, [history]);
+
+ 
+
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
