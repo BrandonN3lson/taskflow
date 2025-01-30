@@ -1,8 +1,9 @@
 .CategoryContainer {
     display: flex;
     justify-content: center;
+    padding-right: 1rem;
+    padding-left: 1rem;
     align-items: baseline;
-    padding: 1.5rem;
     border-radius: 1rem;
     background-color: #2d2d2d;
     width: 100%;
@@ -15,11 +16,13 @@
 
 .CategoryHeader {
     font-size: 1.5rem;
-    border-bottom: 1px solid #fff;
+    margin-top: 1rem;
+    border-bottom: 1px solid #ff4081;
+    color: #ff4081;
 }
 
 .Category {
-    width: 50%;
+    width: 90%;
 }
 
 .DropdownContainer {
@@ -33,6 +36,25 @@
     justify-content: center;
     align-items: center;
     gap: 5px;
+}
+
+.CategoryInput {
+    text-align: center;
+    background-color: transparent;
+    margin-left: 1rem;
+    padding-bottom: 0;
+    border: 0;
+    border-bottom: 1px solid #fff ;
+    box-shadow: none;
+}
+
+.CategoryInput:focus {
+    width: 100%;
+    border: 0;
+    background-color: transparent;
+    border-bottom: 1px solid #ff4081;
+    color: #FFF;
+    box-shadow: none;
 }
 
 .ToggleButton {
@@ -49,6 +71,10 @@
    margin-bottom: 1rem;
 }
 
+.Row:hover {
+    color: #ff4081;
+ }
+ 
 
 .ToggleButton:hover {
     color: #ff4081; /* Optional: Change hover color */

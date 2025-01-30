@@ -6,6 +6,7 @@ import { Link, useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useSetCurrentUser } from "../../context/CurrentUserContext";
 import { axiosRes } from "../../api/axiosDefault";
 import ContainerStyles from '../../styles/Container.module.css'
+import { setTokeTimestamp } from "../../utils/utils";
 
 const SignInForm = () => {
     const setCurrentUser = useSetCurrentUser();
@@ -33,6 +34,7 @@ const SignInForm = () => {
                 signInData
             );
             setCurrentUser(data.user);
+            setTokeTimestamp(data)
             history.push("/");
         } catch (error) {
             console.log(error.response?.data);

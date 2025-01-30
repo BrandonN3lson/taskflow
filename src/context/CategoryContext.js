@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { axiosRes } from "../api/axiosDefault";
+import { useCurrentUser } from "./CurrentUserContext";
 
 
 
@@ -8,28 +9,16 @@ export const useCategories = () => useContext(CategoriesContext)
 
 export const CategoryProvider = ({children}) => {
     const [categories, setCategories] = useState();
+    const currentUser = useCurrentUser()
+
+    const handleFetchCategories = async () => {
+        const { data } = await axiosRes.get("/categories/");
+        setCategories(data.results);
+    }
 
     useEffect(() => {
-        let isMounted = true;
-        const fetchCategories = async () => {
-            try {
-                const { data } = await axiosRes.get("/categories/");
-                if (isMounted) {
-                    setCategories(data.results);
-                }
-            } catch (error) {
-                console.log(error);
-            }
-        };
-
-        const timer = setTimeout(() => {
-            fetchCategories();
-        }, 500);
-        return () => {
-            isMounted = false;
-            clearTimeout(timer);
-        };
-    }, []);
+        handleFetchCategories()
+    }, [currentUser]);
 
     return (
         <CategoriesContext.Provider value={categories}>

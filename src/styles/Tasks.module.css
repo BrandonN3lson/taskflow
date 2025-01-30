@@ -1,19 +1,5 @@
 .Container {
-    width: 60%;
-    padding: 1.5rem;
-    margin: 0 auto; /* Center the container horizontally */
-    display: flex;
-    flex-direction: column;
-    
-    align-items: center;
-    border-radius: 1rem;
-    background-color: #2d2d2d;
-    color: #fff;
-    -webkit-box-shadow: inset 0px 0px 20px 5px rgba(255, 255, 255, 0.25);
-    -moz-box-shadow: inset 0px 0px 20px 5px rgba(255, 255, 255, 0.25);
-    box-shadow: inset 0px 0px 20px 5px rgba(255, 255, 255, 0.25);
-
-
+    width: 100%;
 }
 
 .Task {
@@ -21,12 +7,14 @@
     margin: 1rem 0 0 0;
 }
 .RowTitle{
+    width: 100%;
     color: #FF4081;
     border-bottom: 1px solid #FF4081;
     
 }
 
 .Row {
+    width: 100%;
     border-bottom: 1px solid #fff;
     transition: 0.3s;
 }

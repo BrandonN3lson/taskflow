@@ -72,7 +72,7 @@ const AddTask = () => {
                             Category
                         </option>
                         {categories?.map((category) => (
-                            <option value={category.id} key={category.id}>{category.name}</option>
+                            <option value={category.id} key={category.id}>{category.title}</option>
                         ))}
                     </Form.Control>
                 </Form.Group>
@@ -117,7 +117,7 @@ const AddTask = () => {
                                 label="Important"
                                 name="priority"
                                 value="important"
-                                checked={priority === "Important"}
+                                checked={priority === "important"}
                                 onChange={handleChange}
                             />
                         </Col>

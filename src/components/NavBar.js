@@ -1,19 +1,23 @@
 import React from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
-import { NavLink } from "react-router-dom/cjs/react-router-dom.min";
+import { NavLink, useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 import styles from "../styles/NavBar.module.css";
 import { useCurrentUser, useSetCurrentUser } from "../context/CurrentUserContext";
 import axios from "axios";
+import { removeTokenTimestamp } from "../utils/utils";
 
 export const NavBar = () => {
     const currentUser = useCurrentUser();
     const setCurrentUser = useSetCurrentUser()
+    const history = useHistory()
 
     const handleSignOut = async () => {
         try {
             await axios.post('/dj-rest-auth/logout/')
             setCurrentUser(null)
+            history.push('/signin')
+            removeTokenTimestamp()
         } catch (error) {
             console.log(error)            
         }
