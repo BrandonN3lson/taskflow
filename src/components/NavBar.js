@@ -36,13 +36,6 @@ export const NavBar = () => {
             <NavLink
                 className={styles.NavLink}
                 activeClassName={styles.Active}
-                to="/tasks"
-            >
-                Tasks
-            </NavLink>
-            <NavLink
-                className={styles.NavLink}
-                activeClassName={styles.Active}
                 to="/add-task"
             >
                 Add Task

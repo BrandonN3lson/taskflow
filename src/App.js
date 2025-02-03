@@ -5,7 +5,7 @@ import { Route, Switch } from "react-router-dom/cjs/react-router-dom.min";
 import "./api/axiosDefault";
 import SignUpForm from "./pages/auth/SignUpForm";
 import SignInForm from "./pages/auth/SignInForm";
-import DashBoard from "./pages/auth/Dashboard/DashBoard";
+import DashBoard from "./pages/Dashboard/DashBoard";
 import AddTask from "./pages/Tasks/AddTask";
 import { CategoryProvider } from "./context/CategoryContext";
 function App() {
@@ -23,11 +23,6 @@ function App() {
                                     <DashBoard />
                                 </h1>
                             )}
-                        />
-                        <Route
-                            exact
-                            path="/tasks"
-                            render={() => <h1>Tasks</h1>}
                         />
                         <Route
                             exact

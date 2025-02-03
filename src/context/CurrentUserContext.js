@@ -31,9 +31,11 @@ export const CurrentUserProvider = ({ children }) => {
     axiosReq.interceptors.request.use(
         async (config) => {
             if (shouldRefreshToken()) {
+               const refreshToken = localStorage.getItem("refreshTokenTimestamp")
                 try {
-                    await axios.post("/dj-rest-auth/token/refresh/");
+                    await axios.post("/dj-rest-auth/token/refresh/", {refresh:refreshToken},);
                 } catch (err) {
+                    console.log(err.response.data)
                     setCurrentUser((prevCurrentUser) => {
                         if (prevCurrentUser) {
                             history.push("/signin");

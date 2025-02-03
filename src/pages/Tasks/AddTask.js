@@ -20,6 +20,7 @@ const AddTask = () => {
     });
     const { title, description, priority, dueDate } = taskData;
 
+
     const handleChange = (event) => {
         setTaskData({
             ...taskData,
@@ -71,7 +72,7 @@ const AddTask = () => {
                         <option value="" disabled>
                             Category
                         </option>
-                        {categories?.map((category) => (
+                        {categories.categories.results?.map((category) => (
                             <option value={category.id} key={category.id}>{category.title}</option>
                         ))}
                     </Form.Control>
