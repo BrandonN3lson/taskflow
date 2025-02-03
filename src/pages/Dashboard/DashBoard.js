@@ -37,7 +37,7 @@ const DashBoard = () => {
   };
 
   return (
-    <Row className="justify-content-between">
+    <Row className={`justify-content-between`}>
       <Col md="4" lg="3" className="d-block d-md-none">
         <Category
           sm

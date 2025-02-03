@@ -39,10 +39,6 @@ const Tasks = ({ tasks, setTasks, selectedCategoryId }) => {
                 <i className="fa-regular fa-trash-can"></i>
               </p>
             </Col>
-            {/* smallScreens */}
-            {/* <Col xs="2" sm="2" className="p-0 d-block d-sm-none">
-              <p className={styles.Task}><i className="fa-regular fa-trash-can"></i></p>
-            </Col> */}
           </Row>
         ))}
       </InfiniteScroll>
@@ -54,8 +50,8 @@ const Tasks = ({ tasks, setTasks, selectedCategoryId }) => {
       <div className={`${styles.TaskContainer}`}>
         <Container className={`${styles.ContainerTitle}`}>
           <Row className={`text-center d-flex ${styles.RowTitle}`}>
-            <Col className="col-sm-7 m-0">
-              <p className={styles.Task}>Title</p>
+            <Col className={`col-xs-12 col-sm-7 m-0 ${styles.Col}`}>
+              <p className={`${styles.Task} p-1 m-0`}>Title</p>
             </Col>
             <Col className="col-3  d-none d-md-block">
               <p className={`${styles.Task}`}>Status</p>
