@@ -34,7 +34,7 @@
     box-shadow: inset 0px 0px 10px 2px rgba(255, 255, 255, 0.4) !important;
 }
 
-.AddCategory {
+.AddCategory, .ToggleDeleteIcon {
     margin: 0;
     border: 0;
     background-color: transparent;
@@ -42,7 +42,7 @@
     transition: ease-in-out 0.2s;
 }
 
-.AddCategory:hover {
+.AddCategory:hover, .ToggleDeleteIcon:hover {
     background-color: transparent;
     color: #ff4081;
     font-size: 1.7rem;
@@ -56,4 +56,15 @@
 .AddCategory::after{
     background-color: transparent;
     box-shadow: none;
+}
+
+.MobileToggleDeleteIcon {
+    transition: color ease-in-out 0.3s;
+    transition: ease-in-out 0.2s;
+}
+
+.MobileToggleDeleteIcon:hover {
+    background-color: transparent;
+    color: #ff4081;
+    font-size: 1.3rem;
 }

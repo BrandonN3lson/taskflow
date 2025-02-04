@@ -1,14 +1,28 @@
 import React from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import styles from "../styles/Tasks.module.css";
+import BtnStyles from "../styles/Button.module.css"
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { fetchMoreData } from "../utils/utils";
+import { axiosRes } from "../api/axiosDefault";
 
 const Tasks = ({ tasks, setTasks, selectedCategoryId }) => {
   const filteredTasks = selectedCategoryId
     ? tasks.results.filter((task) => task.category === selectedCategoryId)
     : tasks.results;
+
+    const handleDelete = async (taskId) => {
+        try {
+               await axiosRes.delete(`/tasks/${taskId}`)
+               setTasks((prevState) => ({
+                ...prevState,
+                results: prevState.results.filter((task) => task.id !== taskId)
+               }))
+             } catch (error) {
+              console.log(error)
+             }
+    }
 
   const task = (
     <>
@@ -22,20 +36,19 @@ const Tasks = ({ tasks, setTasks, selectedCategoryId }) => {
       >
         {filteredTasks?.map((task) => (
           <Row
-            as={Link}
+            
             key={task.id}
-            to="/task-detail"
+            
             className={`text-center d-flex justify-content-between ${styles.Row}`}
           >
-            <Col xs="10" sm="7" className="p-left-0 m-0 text-left">
+            <Col as={Link} to="/task-detail" xs="10" sm="7" className="p-left-0 m-0 text-left">
               <p className={styles.Task}>{task.title}</p>
             </Col>
             <Col xs="auto" sm="3" className="p-0 d-none d-md-block">
               <p className={`${styles.Task}`}>{task.status}</p>
             </Col>
-            {/* bigscreen */}
             <Col xs="1" sm="2" className="p-0">
-              <p className={styles.Task}>
+              <p className={`${styles.Task} ${BtnStyles.ToggleDeleteIcon}`} onClick={()=>{handleDelete(task.id)}} >
                 <i className="fa-regular fa-trash-can"></i>
               </p>
             </Col>

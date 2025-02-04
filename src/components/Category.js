@@ -69,21 +69,64 @@ const Category = ({ sm, md, selectedCategory, onCategorySelect }) => {
                   <i className="bi bi-caret-down-fill"></i>
                 </Dropdown.Toggle>
 
-                <Dropdown.Menu>
+                <Dropdown.Menu style={{ maxHeight: "200px", overflowY: "auto" }}>
                   <Dropdown.Item onClick={() => handleSelect("All", null)}>
                     All
-                  </Dropdown.Item>
+                  </Dropdown.Item >
                   {categories.results?.map((category) => (
-                    <Dropdown.Item
+                    <Dropdown.Item className="d-flex justify-content-between"
                       key={category.id}
                       onClick={() => handleSelect(category.title, category.id)}
                     >
                       {category.title}
+                      <span className={`${styles.DeleteIcon} ${BtnStyles.MobileToggleDeleteIcon}`} onClick={(e) => {e.stopPropagation(); handleDelete(category.id)}}>
+                        <i className="fa-regular fa-trash-can"></i>
+                      </span>
                     </Dropdown.Item>
+                    
+                    
                   ))}
                 </Dropdown.Menu>
               </Dropdown>
             </h1>
+
+            <div>
+              <Form onSubmit={handleSubmitCategory}>
+                <Row>
+                  <Col className="col-10 p-0">
+                    <Form.Group>
+                      <Form.Label className="d-none">Category</Form.Label>
+                      <Form.Control
+                        className={styles.CategoryInput}
+                        type="text"
+                        placeholder="Category"
+                        name="title"
+                        value={title}
+                        onChange={handleChange}
+                      />
+                    </Form.Group>
+                  </Col>
+
+                  <Col className="col-2 text-center p-0">
+                    <Button
+                      type="submit"
+                      className={`${BtnStyles.AddCategory}`}
+                    >
+                      <i className="fa-solid fa-plus"></i>
+                    </Button>
+                  </Col>
+                  {errors.title?.map((message, idx) => (
+                    <Alert
+                      className={AlertStyles.Alert}
+                      variant="warning"
+                      key={idx}
+                    >
+                      {message}
+                    </Alert>
+                  ))}
+                </Row>
+              </Form>
+            </div>
           </div>
         </Container>
       )}
@@ -131,7 +174,7 @@ const Category = ({ sm, md, selectedCategory, onCategorySelect }) => {
             </div>
             <div>
               <Row
-                className={`align-items-center justify-content-center ${styles.Row}`}
+                className={`align-items-center justify-content-center ${styles.AllRow}`}
                 onClick={() => handleSelect("All", null)}
               >
                 <p className={`${styles.CategoryText}`}>All</p>
@@ -165,7 +208,7 @@ const Category = ({ sm, md, selectedCategory, onCategorySelect }) => {
                       <p className={`${styles.CategoryText}`}>
                         {category.title}
                       </p>
-                      <span className={styles.DeleteIcon} onClick={() => handleDelete(category.id)}>
+                      <span className={`${styles.DeleteIcon} ${BtnStyles.ToggleDeleteIcon}`} onClick={() => handleDelete(category.id)}>
                         <i className="fa-regular fa-trash-can"></i>
                       </span>
                     </div>

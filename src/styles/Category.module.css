@@ -87,6 +87,10 @@
     cursor: pointer;
 }
 
+.AllRow {
+    margin-bottom: 1rem;
+}
+
 .Row {
    margin-bottom: 1rem;
    width: 100%;
