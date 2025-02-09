@@ -1,16 +1,20 @@
 /* Task Detail Container */
 .TaskDetailContainer {
-    height: 80vh;
-    padding: 0;
+  width: 80%;
+  padding: 0;
 }
 
 .TaskCard {
-    width: 100%;
-    height: 100%;
-    background-color: transparent;
-    border: none;
-    box-shadow: none !important;
-    color: #fff;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  border: none;
+  box-shadow: none !important;
+  color: #fff;
+}
+
+.TaskLoader {
+  color: #fff;
 }
 
 /* Priority Styles */
@@ -30,7 +34,6 @@
 /* Category */
 .Category {
   font-size: 14px;
-  
 }
 
 /* Task Title */
@@ -51,16 +54,15 @@
 }
 
 .ToggleStatusButton {
-    color: inherit;
-    text-decoration: none;
-    font-size: 18px;
-    padding: 0;
-    border: none;
-    background: none;
-    cursor: pointer;
-    box-shadow: none !important;
+  color: inherit;
+  text-decoration: none;
+  font-size: 18px;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  box-shadow: none !important;
 }
-
 
 /* Description */
 .Description {
@@ -74,5 +76,45 @@
 
 /* File Upload Section */
 .AddFile {
+  margin-top: 1rem;
   font-size: 16px;
+  border-color: #ff4081;
+  color: #ff4081;
+}
+
+.AddFile:hover {
+  font-size: 16px;
+  border-color: #ff4081;
+  color: #ff4081;
+  background-color: transparent;
+}
+
+.TaskFile {
+    font-size: 2.5rem;
+    white-space: nowrap;
+    display: flex;
+    flex-direction: column;
+    text-overflow: ellipsis; 
+}
+
+.TaskFileText {
+    font-size: 13px;
+}
+
+.Row {
+    width: 300px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.Col {
+    overflow: hidden; 
+    max-width: 100px;
+}
+
+@media screen and (max-width: 768px) {
+  .TaskDetailContainer {
+    width: 100%;
+  }
 }

@@ -1,6 +1,6 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
-import { axiosReq } from "../../api/axiosDefault";
+import { axiosReq, axiosRes } from "../../api/axiosDefault";
 import { useCategories } from "../../context/CategoryContext";
 import {
   Button,
@@ -8,21 +8,27 @@ import {
   Col,
   Container,
   Dropdown,
+  Form,
   Row,
 } from "react-bootstrap";
 import styles from "../../styles/TaskDetail.module.css";
 
 const TaskDetail = () => {
   const { taskId } = useParams();
-  const [task, setTask] = useState(null);
   const { categories } = useCategories();
+  const fileInputRef = useRef(null);
+  const [task, setTask] = useState(null);
+  const [taskFiles, setTaskFiles] = useState([]);
+  const [files, setFiles] = useState({
+    file: "",
+  });
 
   const statusChoices = [
     ["pending", "Pending"],
     ["in_progress", "In Progress"],
     ["completed", "Completed"],
   ];
-
+  //fetch task details
   const fetchTask = useCallback(async () => {
     try {
       const { data } = await axiosReq.get(`/tasks/${taskId}/`);
@@ -36,6 +42,52 @@ const TaskDetail = () => {
     fetchTask();
   }, [fetchTask]);
 
+  //  fetch task files
+  const fetchTaskFiles = async () => {
+    try {
+      const { data } = await axiosRes.get(`/task-files/?task=${taskId}`);
+      setTaskFiles(data.results);
+    } catch (error) {
+      console.log(error.response?.data);
+    }
+  };
+
+  useEffect(() => {
+    fetchTaskFiles();
+  }, [taskId]);
+
+  // handle uploading files
+  const handleChange = (e) => {
+    setFiles({
+      ...file,
+      [e.target.name]: e.target.files[0],
+    });
+  };
+
+  const handleFileUpload = async (event) => {
+    event.preventDefault();
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("task", taskId);
+
+    try {
+       await axiosReq.post("/task-files/", formData);
+      setFiles({ file: "" });
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
+      }
+      fetchTaskFiles();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getFileName = (url) => {
+    if (!url) return "Unknown File";
+    return url.split("/").pop().split("_").join(".");
+  };
+
+  // update status of task
   const handleStatusChange = async (newStatus) => {
     try {
       await axiosReq.patch(`/tasks/${taskId}/`, { status: newStatus });
@@ -46,7 +98,7 @@ const TaskDetail = () => {
   };
 
   if (!task) {
-    return <p>Loading task detail...</p>;
+    return <p className={styles.TaskLoader}>Loading task detail...</p>;
   }
 
   const categoryObject = categories.results.find(
@@ -57,6 +109,7 @@ const TaskDetail = () => {
     : "Unknown Category";
 
   const { title, priority, due_date, description } = task;
+  const { file } = files;
 
   return (
     <Container className={`mt-4 ${styles.TaskDetailContainer}`}>
@@ -121,10 +174,39 @@ const TaskDetail = () => {
         {/* File Upload Placeholder */}
         <Row className="mt-4">
           <Col>
-            <Button variant="outline-primary" className={`${styles.AddFile}`}>
-              + Add file
-            </Button>
+            <Form onSubmit={handleFileUpload} encType="multipart/form-data">
+              <Form.Group>
+                <Form.Label className="d-none">Add a file</Form.Label>
+                <Form.Control
+                  type="file"
+                  name="file"
+                  ref={fileInputRef}
+                  onChange={handleChange}
+                />
+                <Button
+                  type="submit"
+                  variant="outline-primary"
+                  className={`${styles.AddFile}`}
+                >
+                  + Add file
+                </Button>
+              </Form.Group>
+            </Form>
           </Col>
+        </Row>
+        <Row className={`${styles.Row}`}>
+          {taskFiles?.map((file) => (
+            <Col className={`col-2 ${styles.Col}`}>
+              <div>
+                <a className={styles.TaskFile} href={file.file} target="_blank" rel="noopener noreferrer">
+                  <i className="fa-regular fa-file"></i>
+                  <p className={styles.TaskFileText}>
+                    {getFileName(file?.file)}
+                  </p>
+                </a>
+              </div>
+            </Col>
+          ))}
         </Row>
       </Card>
     </Container>
