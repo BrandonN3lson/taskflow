@@ -37,7 +37,6 @@ const SignInForm = () => {
             setTokeTimestamp(data)
             history.push("/");
         } catch (error) {
-            console.log(error.response?.data);
             setErrors(error.response?.data);
         }
     };

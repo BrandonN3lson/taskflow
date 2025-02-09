@@ -16,9 +16,9 @@ const AddTask = () => {
         category: "",
         descriptiom: "",
         priority: "none",
-        dueDate: "",
+        due_date: "",
     });
-    const { title, description, priority, dueDate } = taskData;
+    const { title, description, priority, due_date } = taskData;
 
 
     const handleChange = (event) => {
@@ -133,8 +133,8 @@ const AddTask = () => {
                             <Form.Control
                                 className={styles.FormInput}
                                 type="datetime-local"
-                                name="dueDate"
-                                value={dueDate}
+                                name="due_date"
+                                value={due_date}
                                 onChange={handleChange}
                             />
                         </Col>

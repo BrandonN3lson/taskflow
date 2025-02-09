@@ -208,7 +208,7 @@ const Category = ({ sm, md, selectedCategory, onCategorySelect }) => {
                       <p className={`${styles.CategoryText}`}>
                         {category.title}
                       </p>
-                      <span className={`${styles.DeleteIcon} ${BtnStyles.ToggleDeleteIcon}`} onClick={() => handleDelete(category.id)}>
+                      <span className={`${styles.DeleteIcon} ${BtnStyles.ToggleDeleteIcon}`} onClick={(e) => {e.stopPropagation(); handleDelete(category.id)}}>
                         <i className="fa-regular fa-trash-can"></i>
                       </span>
                     </div>

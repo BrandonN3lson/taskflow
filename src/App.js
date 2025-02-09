@@ -8,6 +8,7 @@ import SignInForm from "./pages/auth/SignInForm";
 import DashBoard from "./pages/Dashboard/DashBoard";
 import AddTask from "./pages/Tasks/AddTask";
 import { CategoryProvider } from "./context/CategoryContext";
+import TaskDetail from "./pages/Tasks/TaskDetail";
 function App() {
     return (
         <CategoryProvider>
@@ -41,8 +42,9 @@ function App() {
                         />
                         <Route
                             exact
-                            path="/logout"
-                            render={() => <h1>Log out</h1>}
+                            component={TaskDetail}
+                            path="/task-detail/:taskId"
+                            render={() => <h1><TaskDetail/></h1>}
                         />
                         <Route render={() => <p>Page not found!</p>} />
                     </Switch>

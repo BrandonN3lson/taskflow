@@ -1,0 +1,78 @@
+/* Task Detail Container */
+.TaskDetailContainer {
+    height: 80vh;
+    padding: 0;
+}
+
+.TaskCard {
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    border: none;
+    box-shadow: none !important;
+    color: #fff;
+}
+
+/* Priority Styles */
+.Priority {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.PriorityHigh {
+  color: red;
+}
+
+.priorityNone {
+  color: green;
+}
+
+/* Category */
+.Category {
+  font-size: 14px;
+  
+}
+
+/* Task Title */
+.TaskTitle {
+  font-size: 28px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+/* Due Date & Status */
+.DueDate {
+  font-size: 16px;
+}
+
+.Status {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.ToggleStatusButton {
+    color: inherit;
+    text-decoration: none;
+    font-size: 18px;
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+    box-shadow: none !important;
+}
+
+
+/* Description */
+.Description {
+  font-size: 16px;
+  width: 300px;
+  height: 300px;
+  border: 1px solid #ddd;
+  padding: 12px;
+  border-radius: 8px;
+}
+
+/* File Upload Section */
+.AddFile {
+  font-size: 16px;
+}

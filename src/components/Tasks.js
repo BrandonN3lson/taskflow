@@ -41,7 +41,7 @@ const Tasks = ({ tasks, setTasks, selectedCategoryId }) => {
             
             className={`text-center d-flex justify-content-between ${styles.Row}`}
           >
-            <Col as={Link} to="/task-detail" xs="10" sm="7" className="p-left-0 m-0 text-left">
+            <Col as={Link} to={`/task-detail/${task.id}`} xs="10" sm="7" className="p-left-0 m-0 text-left">
               <p className={styles.Task}>{task.title}</p>
             </Col>
             <Col xs="auto" sm="3" className="p-0 d-none d-md-block">
