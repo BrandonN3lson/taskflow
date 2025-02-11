@@ -101,11 +101,42 @@
     font-size: 13px;
 }
 
+.TaskEditButton {
+    color: #fff;
+    font-size: 1.5rem;
+    border: none;
+    background-color: transparent;
+    transition: color ease-in-out 0.3s;
+}
+
+.TaskEditButton:hover{
+    color: #ff4081;
+    transition: color ease-in-out 0.3s;
+}
+.TaskFileDeleteButton {
+    color: #ff4081;
+    font-size: 1.5rem;
+    border: none;
+    background-color: transparent;
+    transition: color ease-in-out 0.3s;
+}
+
+.TaskFileDeleteButton:hover {
+    color: #fff;
+    transition: color ease-in-out 0.3s;
+}
+
 .Row {
     width: 300px;
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
+}
+
+.TaskRow {
+    width: 350px;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .Col {

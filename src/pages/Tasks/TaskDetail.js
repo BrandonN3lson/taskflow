@@ -22,6 +22,7 @@ const TaskDetail = () => {
   const [files, setFiles] = useState({
     file: "",
   });
+  const [isEditMode, setIsEditMode] = useState(false);
 
   const statusChoices = [
     ["pending", "Pending"],
@@ -71,7 +72,7 @@ const TaskDetail = () => {
     formData.append("task", taskId);
 
     try {
-       await axiosReq.post("/task-files/", formData);
+      await axiosReq.post("/task-files/", formData);
       setFiles({ file: "" });
       if (fileInputRef.current) {
         fileInputRef.current.value = "";
@@ -81,6 +82,21 @@ const TaskDetail = () => {
       console.log(error);
     }
   };
+
+  // Task files EditButton
+  const handleEditToggle = () => {
+    setIsEditMode((prevState) => !prevState)
+  }
+
+  const handleDeleteFile = async (fileId) => {
+    try {
+        await axiosReq.delete(`/task-files/${fileId}`)
+        fetchTaskFiles();
+    } catch (error) {
+        console.log(error)
+    }
+  }
+
 
   const getFileName = (url) => {
     if (!url) return "Unknown File";
@@ -172,7 +188,7 @@ const TaskDetail = () => {
         </Row>
 
         {/* File Upload Placeholder */}
-        <Row className="mt-4">
+        <Row className={`mt-4`}>
           <Col>
             <Form onSubmit={handleFileUpload} encType="multipart/form-data">
               <Form.Group>
@@ -194,16 +210,36 @@ const TaskDetail = () => {
             </Form>
           </Col>
         </Row>
+          {taskFiles?.length ? (
+            <Row className={`${styles.TaskRow}`} >
+            <Col className={`col-12 text-right`}>
+              <div>
+                <button onClick={handleEditToggle} className={styles.TaskEditButton}>
+                  <i className={isEditMode ? "fa-solid fa-xmark" : "fa-solid fa-pencil"}></i>
+                </button>
+              </div>
+            </Col>
+          </Row>
+          ):(<p>Add files to task</p>)}
         <Row className={`${styles.Row}`}>
           {taskFiles?.map((file) => (
-            <Col className={`col-2 ${styles.Col}`}>
+            <Col key={file.id} className={`col-2 ${styles.Col}`}>
               <div>
-                <a className={styles.TaskFile} href={file.file} target="_blank" rel="noopener noreferrer">
+                
+                <a
+                  className={styles.TaskFile}
+                  href={file.file}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <i className="fa-regular fa-file"></i>
                   <p className={styles.TaskFileText}>
                     {getFileName(file?.file)}
                   </p>
                 </a>
+                {isEditMode && (
+                    <button onClick={() => handleDeleteFile(file.id)} className={`${styles.TaskFileDeleteButton}`}><i className="fa-regular fa-trash-can"></i></button>
+                )}
               </div>
             </Col>
           ))}
