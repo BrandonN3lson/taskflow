@@ -1,5 +1,8 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom/cjs/react-router-dom.min";
+import {
+  useHistory,
+  useParams,
+} from "react-router-dom/cjs/react-router-dom.min";
 import { axiosReq, axiosRes } from "../../api/axiosDefault";
 import { useCategories } from "../../context/CategoryContext";
 import {
@@ -12,17 +15,27 @@ import {
   Row,
 } from "react-bootstrap";
 import styles from "../../styles/TaskDetail.module.css";
+import InfiniteScroll from "react-infinite-scroll-component";
+import { fetchMoreData } from "../../utils/utils";
 
 const TaskDetail = () => {
   const { taskId } = useParams();
   const { categories } = useCategories();
   const fileInputRef = useRef(null);
   const [task, setTask] = useState(null);
-  const [taskFiles, setTaskFiles] = useState([]);
+  const [taskFiles, setTaskFiles] = useState({
+    results: [],
+    next: null,
+  });
   const [files, setFiles] = useState({
     file: "",
   });
   const [isEditMode, setIsEditMode] = useState(false);
+  const history = useHistory();
+
+  const handleEditTask = () => {
+    history.push(`/tasks/${taskId}/edit`);
+  };
 
   const statusChoices = [
     ["pending", "Pending"],
@@ -47,7 +60,11 @@ const TaskDetail = () => {
   const fetchTaskFiles = async () => {
     try {
       const { data } = await axiosRes.get(`/task-files/?task=${taskId}`);
-      setTaskFiles(data.results);
+      setTaskFiles((prevState) => ({
+        ...prevState,
+        results: data.results,
+        next: data.next,
+      }));
     } catch (error) {
       console.log(error.response?.data);
     }
@@ -85,18 +102,17 @@ const TaskDetail = () => {
 
   // Task files EditButton
   const handleEditToggle = () => {
-    setIsEditMode((prevState) => !prevState)
-  }
+    setIsEditMode((prevState) => !prevState);
+  };
 
   const handleDeleteFile = async (fileId) => {
     try {
-        await axiosReq.delete(`/task-files/${fileId}`)
-        fetchTaskFiles();
+      await axiosReq.delete(`/task-files/${fileId}`);
+      fetchTaskFiles();
     } catch (error) {
-        console.log(error)
+      console.log(error);
     }
-  }
-
+  };
 
   const getFileName = (url) => {
     if (!url) return "Unknown File";
@@ -130,6 +146,15 @@ const TaskDetail = () => {
   return (
     <Container className={`mt-4 ${styles.TaskDetailContainer}`}>
       {/* Task Detail Card */}
+      <Row>
+        <Col className={`col-12 text-right`}>
+          <div>
+            <button onClick={handleEditTask} className={styles.TaskEditButton}>
+              <i className={"fa-solid fa-pencil"}></i>
+            </button>
+          </div>
+        </Col>
+      </Row>
       <Card className={`p-4 shadow-sm ${styles.TaskCard}`}>
         <Row className="mb-2">
           <Col>
@@ -210,39 +235,69 @@ const TaskDetail = () => {
             </Form>
           </Col>
         </Row>
-          {taskFiles?.length ? (
-            <Row className={`${styles.TaskRow}`} >
+        {taskFiles.results?.filter((file) => `${file.task}` === `${taskId}`)
+          .length ? (
+          <Row className={`${styles.TaskRow}`}>
             <Col className={`col-12 text-right`}>
               <div>
-                <button onClick={handleEditToggle} className={styles.TaskEditButton}>
-                  <i className={isEditMode ? "fa-solid fa-xmark" : "fa-solid fa-pencil"}></i>
+                <button
+                  onClick={handleEditToggle}
+                  className={styles.TaskEditButton}
+                >
+                  <i
+                    className={
+                      isEditMode ? "fa-solid fa-xmark" : "fa-solid fa-pencil"
+                    }
+                  ></i>
                 </button>
               </div>
             </Col>
           </Row>
-          ):(<p>Add files to task</p>)}
-        <Row className={`${styles.Row}`}>
-          {taskFiles?.map((file) => (
-            <Col key={file.id} className={`col-2 ${styles.Col}`}>
-              <div>
-                
-                <a
-                  className={styles.TaskFile}
-                  href={file.file}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <i className="fa-regular fa-file"></i>
-                  <p className={styles.TaskFileText}>
-                    {getFileName(file?.file)}
-                  </p>
-                </a>
-                {isEditMode && (
-                    <button onClick={() => handleDeleteFile(file.id)} className={`${styles.TaskFileDeleteButton}`}><i className="fa-regular fa-trash-can"></i></button>
-                )}
-              </div>
-            </Col>
-          ))}
+        ) : (
+          <p>Add files to task</p>
+        )}
+        <Row>
+          <InfiniteScroll
+            style={{
+              overflowX: "hidden",
+              scrollbarWidth: "none",
+              msOverflowStyle: "none",
+            }}
+            dataLength={taskFiles.results?.length}
+            loader={<p>loading files...</p>}
+            hasMore={!!taskFiles.next}
+            next={() => fetchMoreData(taskFiles, setTaskFiles)}
+          >
+            <div id="scrolltaskfiles" className={`${styles.Row}`}>
+              {taskFiles.results
+                ?.filter((file) => `${file.task}` === `${taskId}`)
+                .map((file) => (
+                  <Col key={file.id} className={`col-2 ${styles.Col}`}>
+                    <div>
+                      <a
+                        className={styles.TaskFile}
+                        href={file.file}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <i className="fa-regular fa-file"></i>
+                        <p className={styles.TaskFileText}>
+                          {getFileName(file?.file)}
+                        </p>
+                      </a>
+                      {isEditMode && (
+                        <button
+                          onClick={() => handleDeleteFile(file.id)}
+                          className={`${styles.TaskFileDeleteButton}`}
+                        >
+                          <i className="fa-regular fa-trash-can"></i>
+                        </button>
+                      )}
+                    </div>
+                  </Col>
+                ))}
+            </div>
+          </InfiniteScroll>
         </Row>
       </Card>
     </Container>

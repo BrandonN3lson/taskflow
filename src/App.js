@@ -9,6 +9,7 @@ import DashBoard from "./pages/Dashboard/DashBoard";
 import AddTask from "./pages/Tasks/AddTask";
 import { CategoryProvider } from "./context/CategoryContext";
 import TaskDetail from "./pages/Tasks/TaskDetail";
+import EditTask from "./pages/Tasks/EditTask";
 function App() {
     return (
         <CategoryProvider>
@@ -44,7 +45,12 @@ function App() {
                             exact
                             component={TaskDetail}
                             path="/task-detail/:taskId"
-                            render={() => <h1><TaskDetail/></h1>}
+                            render={() =><TaskDetail/>}
+                        />
+                        <Route
+                            exact
+                            path="/tasks/:taskId/edit"
+                            render={() => <EditTask/>}
                         />
                         <Route render={() => <p>Page not found!</p>} />
                     </Switch>
