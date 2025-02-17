@@ -41,10 +41,10 @@ const Tasks = ({ tasks, setTasks, selectedCategoryId }) => {
             
             className={`text-center d-flex justify-content-between ${styles.Row}`}
           >
-            <Col as={Link} to={`/task-detail/${task.id}`} xs="10" sm="7" className="p-left-0 m-0 text-left">
+            <Col as={Link} to={`/task-detail/${task.id}`} xs="10" sm="7" className={`p-left-0 m-0 ${styles.ColTitle}`}>
               <p className={styles.Task}>{task.title}</p>
             </Col>
-            <Col xs="auto" sm="3" className="p-0 d-none d-md-block">
+            <Col xs="auto" sm="3" className={`p-0 d-none d-md-block ${styles.ColStatus}`}>
               <p className={`${styles.Task}`}>{task.status}</p>
             </Col>
             <Col xs="1" sm="2" className="p-0">
@@ -67,7 +67,7 @@ const Tasks = ({ tasks, setTasks, selectedCategoryId }) => {
               <p className={`${styles.Task} p-1 m-0`}>Title</p>
             </Col>
             <Col className="col-3  d-none d-md-block">
-              <p className={`${styles.Task}`}>Status</p>
+              <p className={`${styles.Task}` }>Status</p>
             </Col>
             <Col className="d-none d-md-block"></Col>
           </Row>

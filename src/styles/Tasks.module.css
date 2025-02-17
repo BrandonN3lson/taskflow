@@ -44,6 +44,19 @@
   border-color: #ff4081;
 }
 
+.ColTitle {
+  flex-grow: 1;
+  max-width: 70%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: left;
+}
+
+.ColStatus {
+  text-align: end;
+}
+
 @media screen and (max-width: 576px) {
   .Container {
     max-height: 85vh;

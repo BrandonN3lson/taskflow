@@ -162,7 +162,7 @@ const EditTask = () => {
                 </Form.Group>
 
                 <Button className={BtnStyles.Button} type="submit">
-                    Add
+                    Update
                 </Button>
             </Form>
         </Container>

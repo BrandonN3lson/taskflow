@@ -49,13 +49,13 @@ const Category = ({ sm, md, selectedCategory, onCategorySelect }) => {
   };
 
   const handleDelete = async (categoryId) => {
-     try {
-       await axiosRes.delete(`/categories/${categoryId}`)
-       await handleFetchCategories()
-     } catch (error) {
-      console.log(error)
-     }
-  }
+    try {
+      await axiosRes.delete(`/categories/${categoryId}`);
+      await handleFetchCategories();
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
@@ -69,23 +69,41 @@ const Category = ({ sm, md, selectedCategory, onCategorySelect }) => {
                   <i className="bi bi-caret-down-fill"></i>
                 </Dropdown.Toggle>
 
-                <Dropdown.Menu style={{ maxHeight: "200px", overflowY: "auto" }}>
+              <Dropdown.Menu id="DropdownMenue" className={`${styles.ScrollDiv}`}
+                  style={{ maxHeight: "200px", overflowY: "auto" }}
+                >
                   <Dropdown.Item onClick={() => handleSelect("All", null)}>
                     All
-                  </Dropdown.Item >
-                  {categories.results?.map((category) => (
-                    <Dropdown.Item className="d-flex justify-content-between"
-                      key={category.id}
-                      onClick={() => handleSelect(category.title, category.id)}
-                    >
-                      {category.title}
-                      <span className={`${styles.DeleteIcon} ${BtnStyles.MobileToggleDeleteIcon}`} onClick={(e) => {e.stopPropagation(); handleDelete(category.id)}}>
-                        <i className="fa-regular fa-trash-can"></i>
-                      </span>
-                    </Dropdown.Item>
-                    
-                    
-                  ))}
+                  </Dropdown.Item>
+                  <InfiniteScroll
+                    style={{ overflowX: "hidden" }}
+                    dataLength={categories.results?.length}
+                    loader={<p>...loading</p>}
+                    hasMore={!!categories.next}
+                    next={() => fetchMoreData(categories, setCategories)}
+                    scrollableTarget="DropdownMenue"
+                  >
+                    {categories.results?.map((category) => (
+                      <Dropdown.Item
+                        className="d-flex justify-content-between"
+                        key={category.id}
+                        onClick={() =>
+                          handleSelect(category.title, category.id)
+                        }
+                      >
+                        {category.title}
+                        <span
+                          className={`${styles.DeleteIcon} ${BtnStyles.MobileToggleDeleteIcon}`}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleDelete(category.id);
+                          }}
+                        >
+                          <i className="fa-regular fa-trash-can"></i>
+                        </span>
+                      </Dropdown.Item>
+                    ))}
+                  </InfiniteScroll>
                 </Dropdown.Menu>
               </Dropdown>
             </h1>
@@ -208,12 +226,16 @@ const Category = ({ sm, md, selectedCategory, onCategorySelect }) => {
                       <p className={`${styles.CategoryText}`}>
                         {category.title}
                       </p>
-                      <span className={`${styles.DeleteIcon} ${BtnStyles.ToggleDeleteIcon}`} onClick={(e) => {e.stopPropagation(); handleDelete(category.id)}}>
+                      <span
+                        className={`${styles.DeleteIcon} ${BtnStyles.ToggleDeleteIcon}`}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleDelete(category.id);
+                        }}
+                      >
                         <i className="fa-regular fa-trash-can"></i>
                       </span>
                     </div>
-
-
                   </Row>
                 ))}
               </InfiniteScroll>

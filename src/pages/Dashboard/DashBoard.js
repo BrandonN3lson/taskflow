@@ -4,6 +4,9 @@ import { Col, Row } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import { axiosRes } from "../../api/axiosDefault";
 import { fetchMoreData } from "../../utils/utils";
+import TaskWidget from "../../components/TaskWidget";
+import styles from "../../styles/DashBoard.module.css"
+
 
 const DashBoard = () => {
   const [tasks, setTasks] = useState({ results: [], next: null });
@@ -37,29 +40,40 @@ const DashBoard = () => {
   };
 
   return (
-    <Row className={`justify-content-between`}>
-      <Col md="4" lg="3" className="d-block d-md-none">
-        <Category
-          sm
-          selectedCategory={selectedCategory}
-          onCategorySelect={handleCategorySelect}
-        />
-      </Col>
-      <Col md="4" lg="3" className="d-none d-md-block">
-        <Category
-          md
-          selectedCategory={selectedCategory}
-          onCategorySelect={handleCategorySelect}
-        />
-      </Col>
-      <Col md="8" lg="9">
-        <Tasks
-          tasks={tasks}
-          setTasks={setTasks}
-          selectedCategoryId={selectedCategoryId}
-        />
-      </Col>
-    </Row>
+    <>
+      <Row className={` d-none d-md-flex ${styles.Row}`}>
+        <Col className="col-auto">
+          <TaskWidget title={"important"} filter={"important"} />
+        </Col>
+        <Col className="col-auto" >
+          <TaskWidget title={"Due Soon"}  filter={"due_soon"}/>
+        </Col>
+      </Row>
+
+      <Row className={`justify-content-between`}>
+        <Col md="4" lg="3" className="d-block d-md-none">
+          <Category
+            sm
+            selectedCategory={selectedCategory}
+            onCategorySelect={handleCategorySelect}
+          />
+        </Col>
+        <Col md="4" lg="3" className="d-none d-md-block">
+          <Category
+            md
+            selectedCategory={selectedCategory}
+            onCategorySelect={handleCategorySelect}
+          />
+        </Col>
+        <Col md="8" lg="9">
+          <Tasks
+            tasks={tasks}
+            setTasks={setTasks}
+            selectedCategoryId={selectedCategoryId}
+          />
+        </Col>
+      </Row>
+    </>
   );
 };
 
