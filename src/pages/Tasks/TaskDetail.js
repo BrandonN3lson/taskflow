@@ -239,7 +239,7 @@ const TaskDetail = () => {
           .length ? (
           <Row className={`${styles.TaskRow}`}>
             <Col className={`col-12 text-right`}>
-              <div>
+              <div >
                 <button
                   onClick={handleEditToggle}
                   className={styles.TaskEditButton}
