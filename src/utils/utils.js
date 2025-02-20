@@ -17,6 +17,18 @@ export const fetchMoreData = async (resource, setResource) => {
   }
 };
 
+export const getStatusClass = (styles, taskStatus) => {
+  switch (taskStatus) {
+    case "pending":
+      return styles.Pending;
+    case "in_progress":
+      return styles.InProgress;
+    case "completed":
+      return styles.Completed;
+    default:
+      return "";
+  }
+};
 
 export const setTokeTimestamp = (data) => {
   const refreshTokemTimestamp = data?.refresh_token;
@@ -26,8 +38,6 @@ export const setTokeTimestamp = (data) => {
 export const shouldRefreshToken = () => {
   return !!localStorage.getItem("refreshTokenTimestamp");
 };
-
-
 
 export const removeTokenTimestamp = () => {
   localStorage.removeItem("refreshTokenTimestamp");

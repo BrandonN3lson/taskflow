@@ -3,8 +3,9 @@ import {
   useHistory,
   useParams,
 } from "react-router-dom/cjs/react-router-dom.min";
+import InfiniteScroll from "react-infinite-scroll-component";
+
 import { axiosReq, axiosRes } from "../../api/axiosDefault";
-import { useCategories } from "../../context/CategoryContext";
 import {
   Button,
   Card,
@@ -15,8 +16,10 @@ import {
   Row,
 } from "react-bootstrap";
 import styles from "../../styles/TaskDetail.module.css";
-import InfiniteScroll from "react-infinite-scroll-component";
+import taskStyles from "../../styles/Tasks.module.css";
+import { useCategories } from "../../context/CategoryContext";
 import { fetchMoreData } from "../../utils/utils";
+import { getStatusClass } from "../../utils/utils";
 
 const TaskDetail = () => {
   const { taskId } = useParams();
@@ -57,7 +60,7 @@ const TaskDetail = () => {
   }, [fetchTask]);
 
   //  fetch task files
-  const fetchTaskFiles = async () => {
+  const fetchTaskFiles = useCallback(async () => {
     try {
       const { data } = await axiosRes.get(`/task-files/?task=${taskId}`);
       setTaskFiles((prevState) => ({
@@ -68,11 +71,11 @@ const TaskDetail = () => {
     } catch (error) {
       console.log(error.response?.data);
     }
-  };
+  },[taskId])
 
   useEffect(() => {
     fetchTaskFiles();
-  }, [taskId]);
+  }, [fetchTaskFiles]);
 
   // handle uploading files
   const handleChange = (e) => {
@@ -157,9 +160,9 @@ const TaskDetail = () => {
       </Row>
       <Card className={`p-4 shadow-sm ${styles.TaskCard}`}>
         <Row className="mb-2">
-          <Col>
-            <h5 className={`${styles.Priority} ${priority.toLowerCase()}`}>
-              Priority: {priority}
+          <Col className={`${priority === "none" ? "d-none" : ""}`}>
+            <h5 className={`${styles.Priority} ${priority ? styles.PriorityHigh : ""}`}>
+              {priority}
             </h5>
           </Col>
           <Col className="text-right">
@@ -172,13 +175,13 @@ const TaskDetail = () => {
           </Col>
         </Row>
         <Row className="mb-3">
-          <Col>
+          <Col className={`${!due_date ? "d-none" : ""}`}>
             <p className={`${styles.DueDate}`}>
               <strong>Due: </strong> {due_date}
             </p>
           </Col>
           <Col className="text-right">
-            <p className={styles.CategoryTitle}>
+            <p className={`${styles.CategoryTitle} ${getStatusClass(taskStyles, task.status)}`}>
               {statusChoices.find(([value]) => value === task.status)?.[1] ||
                 task.status}
               <Dropdown className="d-inline">

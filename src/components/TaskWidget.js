@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import { axiosRes } from "../api/axiosDefault";
@@ -13,7 +13,7 @@ const TaskWidget = ({ title, filter }) => {
     next: null,
   });
 
-  const fetchFilteredTasks = async () => {
+  const fetchFilteredTasks = useCallback(async () => {
     try {
       let url = "/tasks/";
       if (filter === "due_soon") {
@@ -35,11 +35,11 @@ const TaskWidget = ({ title, filter }) => {
     } catch (error) {
       console.log(error);
     }
-  };
+  }, [filter])
 
   useEffect(() => {
     fetchFilteredTasks();
-  }, []);
+  }, [fetchFilteredTasks]);
 
   const tasksToDisplay =
     filter === "important"

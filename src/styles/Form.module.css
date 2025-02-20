@@ -27,6 +27,10 @@ Form > input[type=radio]:checked {
     border-color: #ff4081 !important;
 }
 
+.NotUserText {
+    color: #fff;
+}
+
 @media screen and (max-width: 576px) {
 
     .Form {

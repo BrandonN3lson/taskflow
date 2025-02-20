@@ -27,9 +27,6 @@
   color: red;
 }
 
-.priorityNone {
-  color: green;
-}
 
 /* Category */
 .Category {
@@ -84,7 +81,7 @@
 
 .AddFile:hover {
   font-size: 16px;
-  border-color: #ff4081;
+  border-color: #fff;
   color: #ff4081;
   background-color: transparent;
 }
