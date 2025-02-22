@@ -98,6 +98,7 @@
     font-size: 13px;
 }
 
+
 .TaskEditButton {
     margin-right: 1rem;
     margin-bottom: 1rem;
@@ -151,4 +152,5 @@
   .TaskDetailContainer {
     width: 100%;
   }
+
 }

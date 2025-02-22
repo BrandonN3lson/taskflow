@@ -16,7 +16,7 @@ export const NavBar = () => {
   const setCurrentUser = useSetCurrentUser();
   const history = useHistory();
 
-  const {expanded, setExpanded, ref} = ToggleOutside();
+  const { expanded, setExpanded, ref } = ToggleOutside();
 
   const handleSignOut = async () => {
     try {
@@ -87,6 +87,14 @@ export const NavBar = () => {
         <div>
           <Nav className="text-center d-none d-md-flex">
             {currentUser ? loggedIn : loggedOut}
+            <NavLink
+              exact
+              className={styles.NavLink}
+              activeClassName={styles.Active}
+              to="/about"
+            >
+              About
+            </NavLink>
           </Nav>
         </div>
 
@@ -110,6 +118,14 @@ export const NavBar = () => {
       <Navbar.Collapse id="navbar">
         <Nav className=" py-3 text-left d-md-none">
           {currentUser ? loggedIn : loggedOut}
+          <NavLink
+            exact
+            className={styles.NavLink}
+            activeClassName={styles.Active}
+            to="/about"
+          >
+            About
+          </NavLink>
         </Nav>
       </Navbar.Collapse>
     </Navbar>

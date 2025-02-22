@@ -7,9 +7,11 @@ import { useSetCurrentUser } from "../../context/CurrentUserContext";
 import { axiosRes } from "../../api/axiosDefault";
 import ContainerStyles from '../../styles/Container.module.css'
 import { setTokeTimestamp } from "../../utils/utils";
+import { useRedirect } from "../../hooks/useRedirect";
 
 const SignInForm = () => {
     const setCurrentUser = useSetCurrentUser();
+    useRedirect('loggedIn')
 
     const [signInData, setSignInData] = useState({
         username: "",
@@ -35,7 +37,7 @@ const SignInForm = () => {
             );
             setCurrentUser(data.user);
             setTokeTimestamp(data)
-            history.push("/");
+            history.goBack();
         } catch (error) {
             setErrors(error.response?.data);
         }

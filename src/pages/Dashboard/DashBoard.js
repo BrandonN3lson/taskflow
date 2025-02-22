@@ -7,8 +7,10 @@ import { fetchMoreData } from "../../utils/utils";
 import TaskWidget from "../../components/TaskWidget";
 import styles from "../../styles/DashBoard.module.css";
 import { useCurrentUser } from "../../context/CurrentUserContext";
+import { useRedirect } from "../../hooks/useRedirect";
 
 const DashBoard = () => {
+  useRedirect('loggedOut')
   const currentUser = useCurrentUser();
   const [tasks, setTasks] = useState({ results: [], next: null });
   const [selectedCategory, setSelectedCategory] = useState("All");

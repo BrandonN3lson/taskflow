@@ -1,0 +1,51 @@
+.Container {
+  width: 80%;
+  padding: 0.8rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 1rem;
+  background-color: #2d2d2d;
+  color: #fff;
+  -webkit-box-shadow: inset 0px 0px 20px 5px rgba(255, 255, 255, 0.25);
+  -moz-box-shadow: inset 0px 0px 20px 5px rgba(255, 255, 255, 0.25);
+  box-shadow: inset 0px 0px 20px 5px rgba(255, 255, 255, 0.25);
+}
+
+.Card {
+  width: 100%;
+  background-color: #1e1e2e;
+  border: none;
+  color: #fff;
+  padding: 0.5rem;
+  border-radius: 1rem;
+}
+
+.FeatureCard {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #fff;
+  border: none;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  box-shadow: inset 0px 0px 15px 3px rgba(255, 255, 255, 0.15);
+  transition: ease-in-out 0.2s;
+}
+
+.FeatureCard:hover {
+    font-size: larger;
+    transition: ease-in-out 0.2s;
+} 
+
+.Col {
+    width: 100%;
+}
+
+@media screen and (max-width: 576px) {
+
+    .Container {
+        width: 100%;
+    }
+}
+

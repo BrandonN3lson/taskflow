@@ -36,6 +36,10 @@ a:hover {
   transition: color ease-in-out 0.3s;
 }
 
+.PageNotFound {
+  color: #fff;
+}
+
 @media screen and (max-width: 768px) {
   .App {
     overflow-y: hidden;

@@ -20,8 +20,10 @@ import taskStyles from "../../styles/Tasks.module.css";
 import { useCategories } from "../../context/CategoryContext";
 import { fetchMoreData } from "../../utils/utils";
 import { getStatusClass } from "../../utils/utils";
+import { useRedirect } from "../../hooks/useRedirect";
 
 const TaskDetail = () => {
+  useRedirect('loggedOut')
   const { taskId } = useParams();
   const { categories } = useCategories();
   const fileInputRef = useRef(null);

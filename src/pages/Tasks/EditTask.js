@@ -6,8 +6,10 @@ import BtnStyles from "../../styles/Button.module.css";
 import { useCategories } from "../../context/CategoryContext";
 import { axiosReq } from "../../api/axiosDefault";
 import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom.min";
+import { useRedirect } from "../../hooks/useRedirect";
 
 const EditTask = () => {
+    useRedirect('loggedOut')
     const categories = useCategories();
     const history = useHistory();
     const {taskId} = useParams()

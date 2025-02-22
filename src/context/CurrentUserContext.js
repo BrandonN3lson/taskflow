@@ -29,54 +29,54 @@ export const CurrentUserProvider = ({ children }) => {
 
   useMemo(() => {
     axiosReq.interceptors.request.use(
-        async (config) => {
-            if (shouldRefreshToken()) {
-               const refreshToken = localStorage.getItem("refreshTokenTimestamp")
-                try {
-                    await axios.post("/dj-rest-auth/token/refresh/", {refresh:refreshToken},);
-                } catch (err) {
-                    console.log(err.response.data)
-                    setCurrentUser((prevCurrentUser) => {
-                        if (prevCurrentUser) {
-                            history.push("/signin");
-                        }
-                        return null;
-                    });
-                    removeTokenTimestamp()
-                    return config;
-                }
-            }
+      async (config) => {
+        if (shouldRefreshToken()) {
+          try {
+            await axios.post("/dj-rest-auth/token/refresh/", {
+              refresh: window.localStorage.getItem("refreshTokenTimestamp"),
+            });
+          } catch (err) {
+            console.log(err.response.data);
+            setCurrentUser((prevCurrentUser) => {
+              if (prevCurrentUser) {
+                history.push("/signin");
+              }
+              return null;
+            });
+            removeTokenTimestamp();
             return config;
-        },
-        (err) => {
-            return Promise.reject(err);
+          }
         }
+        return config;
+      },
+      (err) => {
+        return Promise.reject(err);
+      }
     );
 
     axiosRes.interceptors.response.use(
-        (response) => response,
-        async (err) => {
-            if (err.response?.status === 401) {
-                try {
-                    await axios.post("/dj-rest-auth/token/refresh/");
-                } catch (err) {
-                    setCurrentUser((prevCurrentUser) => {
-                        if (prevCurrentUser) {
-                            history.push("/signin");
-                        }
-                        return null;
-                    });
-                    removeTokenTimestamp()
-                }
-                return axios(err.config);
-            }
-            return Promise.reject(err);
+      (response) => response,
+      async (err) => {
+        if (err.response?.status === 401) {
+          try {
+            await axios.post("/dj-rest-auth/token/refresh/", {
+              refresh: window.localStorage.getItem("refreshTokenTimestamp"),
+            });
+          } catch (err) {
+            setCurrentUser((prevCurrentUser) => {
+              if (prevCurrentUser) {
+                history.push("/signin");
+              }
+              return null;
+            });
+            removeTokenTimestamp();
+          }
+          return axios(err.config);
         }
+        return Promise.reject(err);
+      }
     );
-}, [history]);
-
-
-
+  }, [history]);
 
   // useMemo(() => {
   //   axiosReq.interceptors.request.use(
@@ -115,9 +115,6 @@ export const CurrentUserProvider = ({ children }) => {
   //     }
   //   );
   // }, [history]);
-
- 
-
 
   return (
     <CurrentUserContext.Provider value={currentUser}>

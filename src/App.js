@@ -10,6 +10,7 @@ import AddTask from "./pages/Tasks/AddTask";
 import { CategoryProvider } from "./context/CategoryContext";
 import TaskDetail from "./pages/Tasks/TaskDetail";
 import EditTask from "./pages/Tasks/EditTask";
+import { About } from "./pages/About/About";
 function App() {
     return (
         <CategoryProvider>
@@ -38,6 +39,11 @@ function App() {
                         />
                         <Route
                             exact
+                            path="/about"
+                            render={() => <About/>}
+                        />
+                        <Route
+                            exact
                             path="/add-task"
                             render={() => <AddTask />}
                         />
@@ -52,7 +58,8 @@ function App() {
                             path="/tasks/:taskId/edit"
                             render={() => <EditTask/>}
                         />
-                        <Route render={() => <p>Page not found!</p>} />
+                        
+                        <Route render={() => <Container fuid className="text-center"><p className={styles.PageNotFound}>Page not found!</p></Container>} />
                     </Switch>
                 </Container>
             </div>
