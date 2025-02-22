@@ -1,7 +1,9 @@
 import React from "react";
+import { toast } from 'react-toastify';
+import InfiniteScroll from "react-infinite-scroll-component";
 import { Col, Container, Row } from "react-bootstrap";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
-import InfiniteScroll from "react-infinite-scroll-component";
+
 import { axiosRes } from "../api/axiosDefault";
 import styles from "../styles/Tasks.module.css";
 import BtnStyles from "../styles/Button.module.css";
@@ -20,8 +22,10 @@ const Tasks = ({ tasks, setTasks, selectedCategoryId }) => {
         ...prevState,
         results: prevState.results.filter((task) => task.id !== taskId),
       }));
+      toast.success("Task deleted successfully!")
     } catch (error) {
       console.log(error);
+      toast.error("Failed to delete task")
     }
   };
 

@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
+import { toast } from 'react-toastify';
 import {
   useHistory,
   useParams,
@@ -99,9 +100,11 @@ const TaskDetail = () => {
       if (fileInputRef.current) {
         fileInputRef.current.value = "";
       }
+      toast.success("File uploaded to task!")
       fetchTaskFiles();
     } catch (error) {
       console.log(error);
+      toast.error("Failed to upload file")
     }
   };
 
@@ -114,8 +117,10 @@ const TaskDetail = () => {
     try {
       await axiosReq.delete(`/task-files/${fileId}`);
       fetchTaskFiles();
+      toast.success("File deleted!")
     } catch (error) {
       console.log(error);
+      toast.error("Failed to delete file")
     }
   };
 

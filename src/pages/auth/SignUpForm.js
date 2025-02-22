@@ -1,11 +1,13 @@
 import React, { useState } from "react";
+import { toast } from 'react-toastify';
+
 import { Container, Button, Form, Alert } from "react-bootstrap";
+import { Link, useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import axios from "axios";
 
 import styles from "../../styles/Form.module.css";
 import ContainerStyles from '../../styles/Container.module.css'
 import BtnStyles from "../../styles/Button.module.css";
-import { Link, useHistory } from "react-router-dom/cjs/react-router-dom.min";
-import axios from "axios";
 import { useRedirect } from "../../hooks/useRedirect";
 
 const SignUpForm = () => {
@@ -31,8 +33,11 @@ const SignUpForm = () => {
         try {
             await axios.post('/dj-rest-auth/registration/', signUpData)
             history.push('/signin')
+            toast.success("You are now registered! please sign in")
+            
         } catch (error) {
             setErrors(error.response?.data)
+            toast.error("Something went wrong please try again!")
         }
     }
 
@@ -51,6 +56,7 @@ const SignUpForm = () => {
                         name="username"
                         value={username}
                         onChange={handleChange}
+                        onFocus={() => setErrors((prevState) => ({...prevState, username: []}))}
                     />
                 </Form.Group>
                 {errors.username?.map((message, idx) => 
@@ -66,6 +72,7 @@ const SignUpForm = () => {
                         name="password1"
                         value={password1}
                         onChange={handleChange}
+                        onFocus={() => setErrors((prevState) => ({...prevState, password1: []}))}
                     />
                 </Form.Group>
                 {errors.password1?.map((message, idx) => 
@@ -81,6 +88,7 @@ const SignUpForm = () => {
                         name="password2"
                         value={password2}
                         onChange={handleChange}
+                        onFocus={() => setErrors((prevState) => ({...prevState, password2: []}))}
                     />
                 </Form.Group>
                 {errors.password2?.map((message, idx) => 

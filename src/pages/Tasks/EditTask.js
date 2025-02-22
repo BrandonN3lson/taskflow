@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { toast } from 'react-toastify';
 import { Container, Form, Button, Row, Col, Alert } from "react-bootstrap";
 import styles from "../../styles/Form.module.css";
 import ContainerStyles from "../../styles/Container.module.css";
@@ -17,9 +18,9 @@ const EditTask = () => {
     const [taskData, setTaskData] = useState({
         title: "",
         category: "",
-        descriptiom: "",
+        description: "",
         priority: "none",
-        due_date: "",
+        due_date: null,
     });
     const { title, description, priority, due_date } = taskData;
 
@@ -55,9 +56,11 @@ const EditTask = () => {
             }
             await axiosReq.put(`/tasks/${taskId}`, updateTaskData);
             history.push(`/task-detail/${taskId}`)
+            toast.success("Task updated!")
         } catch (error) {
             if (error.response?.status !== 401) {
                 setErrors(error.response?.data);
+                toast.error("Failed to update Task!")
             }
         }
     };

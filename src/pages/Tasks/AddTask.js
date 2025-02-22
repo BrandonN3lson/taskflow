@@ -1,5 +1,7 @@
 import React, { useState } from "react";
+import { toast } from 'react-toastify';
 import { Container, Form, Button, Row, Col, Alert } from "react-bootstrap";
+
 import styles from "../../styles/Form.module.css";
 import ContainerStyles from "../../styles/Container.module.css";
 import BtnStyles from "../../styles/Button.module.css";
@@ -16,9 +18,9 @@ const AddTask = () => {
   const [taskData, setTaskData] = useState({
     title: "",
     category: "",
-    descriptiom: "",
+    description: "",
     priority: "none",
-    due_date: "",
+    due_date: null,
   });
   const { title, description, priority, due_date } = taskData;
 
@@ -34,9 +36,11 @@ const AddTask = () => {
     try {
       await axiosReq.post("/tasks/", taskData);
       history.push("/");
+      toast.success("Task added successfully")
     } catch (error) {
       if (error.response?.status !== 401) {
         setErrors(error.response?.data);
+        toast.error("Failed to submit task!")
       }
     }
   };

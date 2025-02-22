@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { toast } from 'react-toastify';
 import {
   Alert,
   Button,
@@ -41,9 +42,11 @@ const Category = ({ sm, md, selectedCategory, onCategorySelect }) => {
       await axiosReq.post("/categories/", addCategory);
       handleFetchCategories();
       setAddCategory({ title: "" });
+      toast.success("Category added successfully")
     } catch (error) {
       if (error.response?.status !== 401) {
         setErrors(error?.response.data);
+        toast.error("Failed to add Category")
       }
     }
   };
@@ -52,8 +55,10 @@ const Category = ({ sm, md, selectedCategory, onCategorySelect }) => {
     try {
       await axiosRes.delete(`/categories/${categoryId}`);
       await handleFetchCategories();
+      toast.success("category deleted!")
     } catch (error) {
       console.log(error);
+      toast.error("Failed to delete category")
     }
   };
 
@@ -121,6 +126,7 @@ const Category = ({ sm, md, selectedCategory, onCategorySelect }) => {
                         name="title"
                         value={title}
                         onChange={handleChange}
+                        onFocus={() => setErrors({})}
                       />
                     </Form.Group>
                   </Col>
@@ -166,6 +172,7 @@ const Category = ({ sm, md, selectedCategory, onCategorySelect }) => {
                         name="title"
                         value={title}
                         onChange={handleChange}
+                        onFocus={() => setErrors({})}
                       />
                     </Form.Group>
                   </Col>

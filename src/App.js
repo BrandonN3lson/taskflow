@@ -11,6 +11,10 @@ import { CategoryProvider } from "./context/CategoryContext";
 import TaskDetail from "./pages/Tasks/TaskDetail";
 import EditTask from "./pages/Tasks/EditTask";
 import { About } from "./pages/About/About";
+
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 function App() {
     return (
         <CategoryProvider>
@@ -63,6 +67,7 @@ function App() {
                     </Switch>
                 </Container>
             </div>
+            <ToastContainer />
         </CategoryProvider>
     );
 }
