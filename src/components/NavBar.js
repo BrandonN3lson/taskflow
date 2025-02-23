@@ -9,7 +9,7 @@ import {
   useSetCurrentUser,
 } from "../context/CurrentUserContext";
 import axios from "axios";
-import { removeTokenTimestamp } from "../utils/utils";
+import { capitilizeFirstLetter, removeTokenTimestamp } from "../utils/utils";
 import ToggleOutside from "../hooks/ToggleOutside";
 import { useCategories } from "../context/CategoryContext";
 
@@ -126,7 +126,7 @@ export const NavBar = () => {
         <div>
           <Navbar.Text>
             {currentUser ? (
-              <p className={styles.User}>{currentUser?.username}</p>
+              <p className={styles.User}>{capitilizeFirstLetter(currentUser?.username)}</p>
             ) : (
               <p className={styles.User}>please log in</p>
             )}
