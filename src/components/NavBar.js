@@ -1,6 +1,7 @@
 import React from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { NavLink, useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { toast } from "react-toastify";
 
 import styles from "../styles/NavBar.module.css";
 import {
@@ -10,11 +11,13 @@ import {
 import axios from "axios";
 import { removeTokenTimestamp } from "../utils/utils";
 import ToggleOutside from "../hooks/ToggleOutside";
+import { useCategories } from "../context/CategoryContext";
 
 export const NavBar = () => {
   const currentUser = useCurrentUser();
   const setCurrentUser = useSetCurrentUser();
   const history = useHistory();
+  const { categories } = useCategories();
 
   const { expanded, setExpanded, ref } = ToggleOutside();
 
@@ -29,6 +32,13 @@ export const NavBar = () => {
     }
   };
 
+  const handleAddTaskClick = (event) => {
+    if (!categories || categories.results.length === 0) {
+      event.preventDefault();
+      toast.error("You must create a category before adding a task!");
+    }
+  };
+
   const loggedIn = (
     <>
       <NavLink
@@ -40,9 +50,18 @@ export const NavBar = () => {
         Dashboard
       </NavLink>
       <NavLink
+        exact
+        className={styles.NavLink}
+        activeClassName={styles.Active}
+        to="/about"
+      >
+        About
+      </NavLink>
+      <NavLink
         className={styles.NavLink}
         activeClassName={styles.Active}
         to="/add-task"
+        onClick={handleAddTaskClick}
       >
         Add Task
       </NavLink>
@@ -54,6 +73,14 @@ export const NavBar = () => {
   );
   const loggedOut = (
     <>
+      <NavLink
+        exact
+        className={styles.NavLink}
+        activeClassName={styles.Active}
+        to="/about"
+      >
+        About
+      </NavLink>
       <NavLink
         className={styles.NavLink}
         activeClassName={styles.Active}
@@ -87,14 +114,6 @@ export const NavBar = () => {
         <div>
           <Nav className="text-center d-none d-md-flex">
             {currentUser ? loggedIn : loggedOut}
-            <NavLink
-              exact
-              className={styles.NavLink}
-              activeClassName={styles.Active}
-              to="/about"
-            >
-              About
-            </NavLink>
           </Nav>
         </div>
 
@@ -118,14 +137,6 @@ export const NavBar = () => {
       <Navbar.Collapse id="navbar">
         <Nav className=" py-3 text-left d-md-none">
           {currentUser ? loggedIn : loggedOut}
-          <NavLink
-            exact
-            className={styles.NavLink}
-            activeClassName={styles.Active}
-            to="/about"
-          >
-            About
-          </NavLink>
         </Nav>
       </Navbar.Collapse>
     </Navbar>

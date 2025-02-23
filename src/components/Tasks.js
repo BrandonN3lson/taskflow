@@ -1,5 +1,5 @@
 import React from "react";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { Col, Container, Row } from "react-bootstrap";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
@@ -7,27 +7,34 @@ import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import { axiosRes } from "../api/axiosDefault";
 import styles from "../styles/Tasks.module.css";
 import BtnStyles from "../styles/Button.module.css";
-import { fetchMoreData } from "../utils/utils";
-import { getStatusClass } from "../utils/utils";
+import {fetchMoreData, getStatusClass, capitilizeFirstLetter, showConfirmToast } from "../utils/utils";
 
 const Tasks = ({ tasks, setTasks, selectedCategoryId }) => {
   const filteredTasks = selectedCategoryId
     ? tasks.results.filter((task) => task.category === selectedCategoryId)
     : tasks.results;
 
-  const handleDelete = async (taskId) => {
-    try {
-      await axiosRes.delete(`/tasks/${taskId}`);
-      setTasks((prevState) => ({
-        ...prevState,
-        results: prevState.results.filter((task) => task.id !== taskId),
-      }));
-      toast.success("Task deleted successfully!")
-    } catch (error) {
-      console.log(error);
-      toast.error("Failed to delete task")
-    }
+  const handleDelete = (taskId) => {
+    showConfirmToast("Are you sure you want to delete this task?", async () => {
+      try {
+        await axiosRes.delete(`/tasks/${taskId}`);
+        setTasks((prevState) => ({
+          ...prevState,
+          results: prevState.results.filter((task) => task.id !== taskId),
+        }));
+        toast.success("Task deleted successfully!");
+      } catch (error) {
+        console.log(error);
+        toast.error("Failed to delete task");
+      }
+    });
   };
+
+  const statusChoices = [
+    ["pending", "Pending"],
+    ["in_progress", "In Progress"],
+    ["completed", "Completed"],
+  ];
 
   const task = (
     <>
@@ -50,7 +57,7 @@ const Tasks = ({ tasks, setTasks, selectedCategoryId }) => {
               sm="7"
               className={`p-left-0 m-0 ${styles.ColTitle}`}
             >
-              <p className={styles.Task}>{task.title}</p>
+              <p className={styles.Task}>{capitilizeFirstLetter(task.title)}</p>
             </Col>
             <Col
               xs="auto"
@@ -63,7 +70,8 @@ const Tasks = ({ tasks, setTasks, selectedCategoryId }) => {
                   task.status
                 )}`}
               >
-                {task.status}
+                {statusChoices.find(([value]) => value === task.status)?.[1] ||
+                  task.status}
               </p>
             </Col>
             <Col xs="1" sm="2" className="p-0">

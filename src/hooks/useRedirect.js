@@ -16,7 +16,6 @@ export const useRedirect = (userAuthStatus) => {
           history.push("/");
         }
       } catch (error) {
-        console.log(error?.response.data);
         if (userAuthStatus === "loggedOut") {
           history.push("/signin");
         }

@@ -15,6 +15,13 @@ export const CurrentUserProvider = ({ children }) => {
   const history = useHistory();
 
   const handleMount = async () => {
+    const refreshToken = window.localStorage.getItem("refreshTokenTimestamp");
+
+    if (!refreshToken) {
+      removeTokenTimestamp();
+      return;
+    }
+
     try {
       const { data } = await axiosRes.get("/dj-rest-auth/user/");
       setCurrentUser(data);
@@ -78,43 +85,6 @@ export const CurrentUserProvider = ({ children }) => {
     );
   }, [history]);
 
-  // useMemo(() => {
-  //   axiosReq.interceptors.request.use(
-  //      (config) => {
-  //       const accessToken = localStorage.getItem('my-app-auth');
-  //       console.log(accessToken) // Get the access token from localStorage
-  //       if (accessToken) {
-  //         config.headers['Authorization'] = `Bearer ${accessToken}`;
-  //       }
-  //       return config;
-  //     },
-  //     (err) => {
-  //       return Promise.reject(err);
-  //     }
-  //   );
-
-  //   axiosRes.interceptors.response.use(
-  //     (response) => response,
-  //     async (err) => {
-  //       if (err.response?.status === 401) {
-  //         const refreshToken = localStorage.getItem('my-refresh-token'); // Get the refresh token from localStorage
-  //         try {
-  //           // Send the refresh token to get a new access token
-  //           const { data } = await axios.post("/dj-rest-auth/token/refresh/", { refresh: refreshToken });
-  //           // Save the new access token
-  //           localStorage.setItem('my-app-auth', data.access);
-  //           err.config.headers['Authorization'] = `Bearer ${data.access}`;
-  //           return axios(err.config);
-  //         } catch (refreshError) {
-  //           setCurrentUser(null);
-  //           history.push("/signin");
-  //           return Promise.reject(refreshError);
-  //         }
-  //       }
-  //       return Promise.reject(err);
-  //     }
-  //   );
-  // }, [history]);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>

@@ -1,4 +1,6 @@
+import { Button, ButtonGroup, Col, Row } from "react-bootstrap";
 import { axiosReq } from "../api/axiosDefault";
+import { toast } from "react-toastify";
 
 export const fetchMoreData = async (resource, setResource) => {
   try {
@@ -28,6 +30,50 @@ export const getStatusClass = (styles, taskStatus) => {
     default:
       return "";
   }
+};
+
+export const capitilizeFirstLetter = (str) => {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+};
+
+export const showConfirmToast = (message, onConfirm) => {
+  let confirmToast = null;
+
+  confirmToast = toast.info(
+    <div className="text-center">
+      <Row className="justify-content-center">
+        <Col xs={12}>
+          <p>{message}</p>
+        </Col>
+
+        <Col>
+          <ButtonGroup>
+            {/* yes button */}
+            <Button
+              variant="danger"
+              size="sm"
+              onClick={() => {
+                onConfirm();
+                toast.dismiss(confirmToast);
+              }}
+            >
+              Yes, Delete
+            </Button>
+
+            {/* Cancel button */}
+            <Button
+              variant="secondary"
+              size="sm"
+              onClick={() => toast.dismiss(confirmToast)}
+            >
+              Cancel
+            </Button>
+          </ButtonGroup>
+        </Col>
+      </Row>
+    </div>,
+    { autoClose: false, closeOnClick: false }
+  );
 };
 
 export const setTokeTimestamp = (data) => {

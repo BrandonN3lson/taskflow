@@ -19,8 +19,9 @@ import {
 import styles from "../../styles/TaskDetail.module.css";
 import taskStyles from "../../styles/Tasks.module.css";
 import { useCategories } from "../../context/CategoryContext";
-import { fetchMoreData } from "../../utils/utils";
+import { fetchMoreData, showConfirmToast } from "../../utils/utils";
 import { getStatusClass } from "../../utils/utils";
+import { capitilizeFirstLetter } from "../../utils/utils";
 import { useRedirect } from "../../hooks/useRedirect";
 
 const TaskDetail = () => {
@@ -113,15 +114,18 @@ const TaskDetail = () => {
     setIsEditMode((prevState) => !prevState);
   };
 
-  const handleDeleteFile = async (fileId) => {
-    try {
-      await axiosReq.delete(`/task-files/${fileId}`);
-      fetchTaskFiles();
-      toast.success("File deleted!")
-    } catch (error) {
-      console.log(error);
-      toast.error("Failed to delete file")
-    }
+  const handleDeleteFile = (fileId) => {
+    showConfirmToast("are you sure you want to delete this file?", async () => {
+
+      try {
+        await axiosReq.delete(`/task-files/${fileId}`);
+        fetchTaskFiles();
+        toast.success("File deleted!")
+      } catch (error) {
+        console.log(error);
+        toast.error("Failed to delete file")
+      }
+    })
   };
 
   const getFileName = (url) => {
@@ -169,16 +173,16 @@ const TaskDetail = () => {
         <Row className="mb-2">
           <Col className={`${priority === "none" ? "d-none" : ""}`}>
             <h5 className={`${styles.Priority} ${priority ? styles.PriorityHigh : ""}`}>
-              {priority}
+              {capitilizeFirstLetter(priority)}
             </h5>
           </Col>
           <Col className="text-right">
-            <span className={`${styles.Category}`}>{categoryName}</span>
+            <span className={`${styles.Category}`}>{capitilizeFirstLetter(categoryName)}</span>
           </Col>
         </Row>
         <Row className="mb-3">
           <Col>
-            <h2 className={`${styles.TaskTitle}`}>{title}</h2>
+            <h2 className={`${styles.TaskTitle}`}>{capitilizeFirstLetter(title)}</h2>
           </Col>
         </Row>
         <Row className="mb-3">
@@ -218,7 +222,7 @@ const TaskDetail = () => {
         </Row>
         <Row>
           <Col className="d-flex">
-            <p className={`${styles.Description}`}>{description}</p>
+            <p className={`${styles.Description}`}>{capitilizeFirstLetter(description)}</p>
           </Col>
         </Row>
 

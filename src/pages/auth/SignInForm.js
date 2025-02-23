@@ -37,7 +37,7 @@ const SignInForm = () => {
       setCurrentUser(data.user);
       setTokeTimestamp(data);
       history.goBack();
-      toast.success(`Welcon ${data.user.username}`)
+      toast.success(`Welcome ${data.user.username}`)
     } catch (error) {
       setErrors((prevState) => ({
         ...prevState,

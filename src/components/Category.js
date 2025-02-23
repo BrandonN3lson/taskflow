@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 import {
   Alert,
   Button,
@@ -15,7 +15,8 @@ import BtnStyles from "../styles/Button.module.css";
 import AlertStyles from "../styles/Alert.module.css";
 import { axiosReq, axiosRes } from "../api/axiosDefault";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { fetchMoreData } from "../utils/utils";
+import { fetchMoreData, showConfirmToast } from "../utils/utils";
+import { capitilizeFirstLetter } from "../utils/utils";
 
 const Category = ({ sm, md, selectedCategory, onCategorySelect }) => {
   const { categories, setCategories, handleFetchCategories } = useCategories();
@@ -42,24 +43,29 @@ const Category = ({ sm, md, selectedCategory, onCategorySelect }) => {
       await axiosReq.post("/categories/", addCategory);
       handleFetchCategories();
       setAddCategory({ title: "" });
-      toast.success("Category added successfully")
+      toast.success("Category added successfully");
     } catch (error) {
       if (error.response?.status !== 401) {
         setErrors(error?.response.data);
-        toast.error("Failed to add Category")
+        toast.error("Failed to add Category");
       }
     }
   };
 
-  const handleDelete = async (categoryId) => {
-    try {
-      await axiosRes.delete(`/categories/${categoryId}`);
-      await handleFetchCategories();
-      toast.success("category deleted!")
-    } catch (error) {
-      console.log(error);
-      toast.error("Failed to delete category")
-    }
+  const handleDelete = (categoryId) => {
+    showConfirmToast(
+      "Are you sure you want to delete this category?",
+      async () => {
+        try {
+          await axiosRes.delete(`/categories/${categoryId}`);
+          await handleFetchCategories();
+          toast.success("category deleted!");
+        } catch (error) {
+          console.log(error);
+          toast.error("Failed to delete category");
+        }
+      }
+    );
   };
 
   return (
@@ -74,7 +80,9 @@ const Category = ({ sm, md, selectedCategory, onCategorySelect }) => {
                   <i className="bi bi-caret-down-fill"></i>
                 </Dropdown.Toggle>
 
-              <Dropdown.Menu id="DropdownMenue" className={`${styles.ScrollDiv}`}
+                <Dropdown.Menu
+                  id="DropdownMenue"
+                  className={`${styles.ScrollDiv}`}
                   style={{ maxHeight: "200px", overflowY: "auto" }}
                 >
                   <Dropdown.Item onClick={() => handleSelect("All", null)}>
@@ -96,7 +104,7 @@ const Category = ({ sm, md, selectedCategory, onCategorySelect }) => {
                           handleSelect(category.title, category.id)
                         }
                       >
-                        {category.title}
+                        {capitilizeFirstLetter(category.title)}
                         <span
                           className={`${styles.DeleteIcon} ${BtnStyles.MobileToggleDeleteIcon}`}
                           onClick={(e) => {
@@ -231,7 +239,7 @@ const Category = ({ sm, md, selectedCategory, onCategorySelect }) => {
                   >
                     <div className={styles.CategoryItem}>
                       <p className={`${styles.CategoryText}`}>
-                        {category.title}
+                        {capitilizeFirstLetter(category.title)}
                       </p>
                       <span
                         className={`${styles.DeleteIcon} ${BtnStyles.ToggleDeleteIcon}`}
