@@ -2,17 +2,36 @@ import React from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { NavLink, useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { toast } from "react-toastify";
+import axios from "axios";
 
 import styles from "../styles/NavBar.module.css";
+
+import ToggleOutside from "../hooks/ToggleOutside";
+import { useCategories } from "../context/CategoryContext";
 import {
   useCurrentUser,
   useSetCurrentUser,
 } from "../context/CurrentUserContext";
-import axios from "axios";
 import { capitilizeFirstLetter, removeTokenTimestamp } from "../utils/utils";
-import ToggleOutside from "../hooks/ToggleOutside";
-import { useCategories } from "../context/CategoryContext";
 
+/**
+ * NavBar Component
+ *
+ * This component handles navigation, including authentication status,
+ * category-based task addition, and mobile-friendly menu toggling.
+ * It dynamically displays links based on the user's authentication state.
+ *
+ * Context:
+ * - Uses `useCurrentUser` and `useSetCurrentUser` for authentication.
+ * - Uses `useCategories` to access category data.
+ *
+ * External Dependencies:
+ * - react-bootstrap for UI components.
+ * - react-toastify for notifications.
+ * - axios for API requests.
+ *
+ * @returns {JSX.Element} The NavBar component.
+ */
 export const NavBar = () => {
   const currentUser = useCurrentUser();
   const setCurrentUser = useSetCurrentUser();
@@ -21,6 +40,10 @@ export const NavBar = () => {
 
   const { expanded, setExpanded, ref } = ToggleOutside();
 
+  /**
+   * Handles user sign-out by sending a logout request,
+   * clearing authentication state, and redirecting to sign-in.
+   */
   const handleSignOut = async () => {
     try {
       await axios.post("/dj-rest-auth/logout/");
@@ -32,6 +55,10 @@ export const NavBar = () => {
     }
   };
 
+  /**
+   * Prevents adding a task if no categories exist and displays an error message.
+   * @param {Object} event - The event object from the link click.
+   */
   const handleAddTaskClick = (event) => {
     if (!categories || categories.results.length === 0) {
       event.preventDefault();
@@ -126,7 +153,9 @@ export const NavBar = () => {
         <div>
           <Navbar.Text>
             {currentUser ? (
-              <p className={styles.User}>{capitilizeFirstLetter(currentUser?.username)}</p>
+              <p className={styles.User}>
+                {capitilizeFirstLetter(currentUser?.username)}
+              </p>
             ) : (
               <p className={styles.User}>please log in</p>
             )}

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
+import InfiniteScroll from "react-infinite-scroll-component";
 import {
   Alert,
   Button,
@@ -9,15 +10,34 @@ import {
   Form,
   Row,
 } from "react-bootstrap";
+
 import styles from "../styles/Category.module.css";
-import { useCategories } from "../context/CategoryContext";
 import BtnStyles from "../styles/Button.module.css";
 import AlertStyles from "../styles/Alert.module.css";
-import { axiosReq, axiosRes } from "../api/axiosDefault";
-import InfiniteScroll from "react-infinite-scroll-component";
-import { fetchMoreData, showConfirmToast } from "../utils/utils";
-import { capitilizeFirstLetter } from "../utils/utils";
 
+import { useCategories } from "../context/CategoryContext";
+import { axiosReq, axiosRes } from "../api/axiosDefault";
+import {
+  fetchMoreData,
+  showConfirmToast,
+  capitilizeFirstLetter,
+} from "../utils/utils";
+
+/**
+ * Category Component
+ *
+ * This component displays and manages categories. It allows users to select a category,
+ * add a new category, and delete existing categories. The categories are fetched
+ * from the backend and displayed using InfiniteScroll for efficient loading.
+ *
+ * Props:
+ * @param {boolean} sm - Determines if the small screen version should be displayed.
+ * @param {boolean} md - Determines if the medium screen version should be displayed.
+ * @param {string} selectedCategory - The currently selected category.
+ * @param {Function} onCategorySelect - Callback function triggered when a category is selected.
+ * 
+ * @returns {JSX.Element} The Category component.
+ */
 const Category = ({ sm, md, selectedCategory, onCategorySelect }) => {
   const { categories, setCategories, handleFetchCategories } = useCategories();
   const [addCategory, setAddCategory] = useState({
@@ -26,10 +46,19 @@ const Category = ({ sm, md, selectedCategory, onCategorySelect }) => {
   const [errors, setErrors] = useState({});
   const { title } = addCategory;
 
+  /**
+   * Handles category selection and triggers the callback.
+   * @param {string} categoryName - The name of the selected category.
+   * @param {number|null} categoryId - The ID of the selected category.
+   */
   const handleSelect = (categoryName, categoryId) => {
     onCategorySelect(categoryName, categoryId);
   };
 
+  /**
+   * Handles changes in the category input field.
+   * @param {Object} event - The event object from the input field.
+   */
   const handleChange = (event) => {
     setAddCategory({
       ...addCategory,
@@ -37,6 +66,10 @@ const Category = ({ sm, md, selectedCategory, onCategorySelect }) => {
     });
   };
 
+  /**
+   * Submits a new category to the backend and updates the category list.
+   * @param {Object} event - The event object from the form submission.
+   */
   const handleSubmitCategory = async (event) => {
     event.preventDefault();
     try {
@@ -52,6 +85,10 @@ const Category = ({ sm, md, selectedCategory, onCategorySelect }) => {
     }
   };
 
+  /**
+   * Deletes a category after user confirmation.
+   * @param {number} categoryId - The ID of the category to be deleted.
+   */
   const handleDelete = (categoryId) => {
     showConfirmToast(
       "Are you sure you want to delete this category?",

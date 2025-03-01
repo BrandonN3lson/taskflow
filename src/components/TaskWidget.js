@@ -1,18 +1,39 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import InfiniteScroll from "react-infinite-scroll-component";
+
+import styles from "../styles/TaskWidget.module.css";
+
 import { axiosRes } from "../api/axiosDefault";
 import { fetchMoreData } from "../utils/utils";
 
-import styles from "../styles/TaskWidget.module.css";
-import InfiniteScroll from "react-infinite-scroll-component";
-
+/**
+ * TaskWidget Component
+ *
+ * This component displays a filtered list of tasks based on a given filter.
+ * Supports infinite scrolling for additional task loading.
+ *
+ * Props:
+ * @param {string} title - Title of the widget.
+ * @param {string} filter - The type of filter to apply ('due_soon' or 'important').
+ *
+ * External Dependencies:
+ * - react-bootstrap for UI components.
+ * - react-infinite-scroll-component for infinite scrolling.
+ * - axiosRes for API requests.
+ *
+ * @returns {JSX.Element} The TaskWidget component.
+ */
 const TaskWidget = ({ title, filter }) => {
   const [filteredTasks, setFilteredTasks] = useState({
     results: [],
     next: null,
   });
 
+  /**
+   * Fetches filtered tasks from the API based on the provided filter type.
+   */
   const fetchFilteredTasks = useCallback(async () => {
     try {
       let url = "/tasks/";

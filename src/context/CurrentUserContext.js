@@ -1,7 +1,8 @@
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
-import axios from "axios";
-import { axiosReq, axiosRes } from "../api/axiosDefault";
 import { useHistory } from "react-router";
+import axios from "axios";
+
+import { axiosReq, axiosRes } from "../api/axiosDefault";
 import { removeTokenTimestamp, shouldRefreshToken } from "../utils/utils";
 
 export const CurrentUserContext = createContext();
@@ -10,18 +11,29 @@ export const SetCurrentUserContext = createContext();
 export const useCurrentUser = () => useContext(CurrentUserContext);
 export const useSetCurrentUser = () => useContext(SetCurrentUserContext);
 
+/**
+ * Current User Context.
+ *
+ * this was taken from the Code institute moments project.
+ *
+ * This context manages authentication and user session handling.
+ * It provides access to the current user and handles automatic token refreshing.
+ *
+ * External Dependencies:
+ * - axios for API requests.
+ * - axiosReq, axiosRes for request and response handling.
+ * - removeTokenTimestamp, shouldRefreshToken for authentication utilities.
+ *
+ * @returns {JSX.Element} The CurrentUser context provider.
+ */
 export const CurrentUserProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const history = useHistory();
 
+  /**
+   * Fetches the current user's data from the API.
+   */
   const handleMount = async () => {
-    const refreshToken = window.localStorage.getItem("refreshTokenTimestamp");
-
-    if (!refreshToken) {
-      removeTokenTimestamp();
-      return;
-    }
-
     try {
       const { data } = await axiosRes.get("/dj-rest-auth/user/");
       setCurrentUser(data);
@@ -84,7 +96,6 @@ export const CurrentUserProvider = ({ children }) => {
       }
     );
   }, [history]);
-
 
   return (
     <CurrentUserContext.Provider value={currentUser}>

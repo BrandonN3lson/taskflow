@@ -1,15 +1,40 @@
 import React, { useState } from "react";
 import { toast } from 'react-toastify';
 import { Container, Button, Form, Alert } from "react-bootstrap";
+import { Link, useHistory } from "react-router-dom/cjs/react-router-dom.min";
+
 import styles from "../../styles/Form.module.css";
 import BtnStyles from "../../styles/Button.module.css";
-import { Link, useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import ContainerStyles from "../../styles/Container.module.css";
+
 import { useSetCurrentUser } from "../../context/CurrentUserContext";
 import { axiosRes } from "../../api/axiosDefault";
-import ContainerStyles from "../../styles/Container.module.css";
 import { setTokeTimestamp } from "../../utils/utils";
 import { useRedirect } from "../../hooks/useRedirect";
 
+/**
+ * SignInForm
+ * 
+ * This component renders a sign-in form that allows users to log in.
+ * It manages form input, handles validation, submits login data to the server,
+ * and provides error messages if login fails. On successful login, it updates the user state
+ * and redirects the user to the previous page.
+ *
+ * Features:
+ * - Handles user authentication through API submission.
+ * - Displays error messages for incorrect login attempts.
+ * - Redirects users upon successful authentication.
+ * - Uses React Bootstrap for form styling.
+ * - Provides toast notifications for user feedback.
+ *
+ * External Dependencies:
+ * - React Bootstrap (Container, Button, Form, Alert) for UI components.
+ * - React Router (useHistory, Link) for navigation.
+ * - react-toastify for user notifications.
+ * - Custom styles from Form.module.css, Button.module.css, and Container.module.css.
+ *
+ * @returns {JSX.Element} The sign-in form page
+ */
 const SignInForm = () => {
   const setCurrentUser = useSetCurrentUser();
   useRedirect("loggedIn");
@@ -22,6 +47,11 @@ const SignInForm = () => {
 
   const history = useHistory();
 
+  /**
+   * Handles input change in the sign-in form fields.
+   * 
+   * @param {Object} e - Event object containing input field changes.
+   */
   const handleChange = (e) => {
     setSignInData({
       ...signInData,
@@ -29,6 +59,11 @@ const SignInForm = () => {
     });
   };
 
+  /**
+   * Handles form submission for signing in a user.
+   * 
+   * @param {Object} e - Event object for form submission.
+   */
   const handleSubmit = async (e) => {
     e.preventDefault();
 

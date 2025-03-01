@@ -1,12 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { toast } from 'react-toastify';
-import {
-  useHistory,
-  useParams,
-} from "react-router-dom/cjs/react-router-dom.min";
+import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom.min";
 import InfiniteScroll from "react-infinite-scroll-component";
-
-import { axiosReq, axiosRes } from "../../api/axiosDefault";
 import {
   Button,
   Card,
@@ -16,13 +11,39 @@ import {
   Form,
   Row,
 } from "react-bootstrap";
+
 import styles from "../../styles/TaskDetail.module.css";
 import taskStyles from "../../styles/Tasks.module.css";
+
+import { axiosReq, axiosRes } from "../../api/axiosDefault";
 import { useCategories } from "../../context/CategoryContext";
 import { fetchMoreData, showConfirmToast } from "../../utils/utils";
-import { getStatusClass } from "../../utils/utils";
-import { capitilizeFirstLetter } from "../../utils/utils";
+import { getStatusClass, capitilizeFirstLetter  } from "../../utils/utils";
 import { useRedirect } from "../../hooks/useRedirect";
+
+/**
+ * TaskDetail
+ * 
+ * This component displays detailed information about a specific task, including its title, priority, category, 
+ * due date, description, status, and associated files. Users can update the task status, upload and manage files, 
+ * and navigate to the task edit page.
+ * 
+ * Features:
+ * - Fetches task details and associated files from the API.
+ * - Allows users to update the task status via a dropdown.
+ * - Supports file uploads with preview and deletion functionality.
+ * - Provides an edit button to navigate to the task edit page.
+ * - Uses infinite scrolling to load additional task files dynamically.
+ * 
+ * External Dependencies:
+ * - React Bootstrap for layout and form components.
+ * - toast for displaying success/error notifications.
+ * - axiosReq and axiosRes for API requests.
+ * - Context hooks for fetching category details.
+ * - Utility functions for confirmation dialogs, fetching additional data, and formatting.
+ * 
+ * @returns {JSX.Element} The task detail view.
+ */
 
 const TaskDetail = () => {
   useRedirect('loggedOut')
@@ -40,6 +61,9 @@ const TaskDetail = () => {
   const [isEditMode, setIsEditMode] = useState(false);
   const history = useHistory();
 
+  /**
+   * Redirects to the task edit page.
+   */
   const handleEditTask = () => {
     history.push(`/tasks/${taskId}/edit`);
   };
@@ -49,7 +73,10 @@ const TaskDetail = () => {
     ["in_progress", "In Progress"],
     ["completed", "Completed"],
   ];
-  //fetch task details
+  
+  /**
+   * Fetches task details from the API.
+   */
   const fetchTask = useCallback(async () => {
     try {
       const { data } = await axiosReq.get(`/tasks/${taskId}/`);
@@ -63,7 +90,9 @@ const TaskDetail = () => {
     fetchTask();
   }, [fetchTask]);
 
-  //  fetch task files
+  /**
+   * Fetches files attached to the task from the API.
+   */
   const fetchTaskFiles = useCallback(async () => {
     try {
       const { data } = await axiosRes.get(`/task-files/?task=${taskId}`);
@@ -81,7 +110,11 @@ const TaskDetail = () => {
     fetchTaskFiles();
   }, [fetchTaskFiles]);
 
-  // handle uploading files
+  /**
+   * Handles file input change.
+   * 
+   * @param {Object} event - The input change event.
+   */
   const handleChange = (e) => {
     setFiles({
       ...file,
@@ -89,6 +122,11 @@ const TaskDetail = () => {
     });
   };
 
+  /**
+   * Uploads a file to the task.
+   * 
+   * @param {Object} event - The form submission event.
+   */
   const handleFileUpload = async (event) => {
     event.preventDefault();
     const formData = new FormData();
@@ -109,11 +147,16 @@ const TaskDetail = () => {
     }
   };
 
-  // Task files EditButton
+  /**
+   * Toggles edit mode for task files.
+   */
   const handleEditToggle = () => {
     setIsEditMode((prevState) => !prevState);
   };
 
+  /**
+   * Deletes a file from the task.
+   */
   const handleDeleteFile = (fileId) => {
     showConfirmToast("are you sure you want to delete this file?", async () => {
 
@@ -128,6 +171,9 @@ const TaskDetail = () => {
     })
   };
 
+  /**
+   * Extracts file name from URL.
+   */
   const getFileName = (url) => {
     if (!url) return "Unknown File";
     return url.split("/").pop().split("_").join(".");

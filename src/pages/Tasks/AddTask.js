@@ -5,11 +5,32 @@ import { Container, Form, Button, Row, Col, Alert } from "react-bootstrap";
 import styles from "../../styles/Form.module.css";
 import ContainerStyles from "../../styles/Container.module.css";
 import BtnStyles from "../../styles/Button.module.css";
+
 import { useCategories } from "../../context/CategoryContext";
 import { axiosReq } from "../../api/axiosDefault";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useCurrentUser } from "../../context/CurrentUserContext";
 
+/**
+ * AddTask
+ * 
+ * This component provides a form for users to add a new task.
+ * It includes fields for title, category, description, priority, and due date.
+ * 
+ * Features:
+ * - Allows users to input task details and submit them to the API.
+ * - Displays error messages if submission fails.
+ * - Uses Bootstrap for styling and layout.
+ * - Redirects users who are not signed in.
+ * 
+ * External Dependencies:
+ * - React Bootstrap for form elements and layout.
+ * - toast for success/error notifications.
+ * - axiosReq for API requests.
+ * - Context hooks for authentication and category selection.
+ * 
+ * @returns {JSX.Element} The task creation form.
+ */
 const AddTask = () => {
   const currentUser = useCurrentUser();
   const categories = useCategories();
@@ -24,6 +45,11 @@ const AddTask = () => {
   });
   const { title, description, priority, due_date } = taskData;
 
+  /**
+   * Handles changes to input fields and updates state.
+   * 
+   * @param {Object} event - The input change event.
+   */
   const handleChange = (event) => {
     setTaskData({
       ...taskData,
@@ -31,6 +57,13 @@ const AddTask = () => {
     });
   };
 
+  /**
+   * Handles form submission, sending task data to the API.
+   * If successful, redirects to the dashboard and shows a success toast.
+   * If an error occurs, updates error state and shows an error toast.
+   * 
+   * @param {Object} event - The form submission event.
+   */
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {

@@ -10,6 +10,29 @@ import ContainerStyles from '../../styles/Container.module.css'
 import BtnStyles from "../../styles/Button.module.css";
 import { useRedirect } from "../../hooks/useRedirect";
 
+/**
+ * SignUpForm
+ * 
+ * This component renders a sign-up form that allows users to create an account.
+ * It manages form input, handles validation, submits registration data to the server,
+ * and provides error messages if registration fails. On successful registration, 
+ * users are redirected to the sign-in page.
+ *
+ * Features:
+ * - Handles user registration through API submission.
+ * - Displays error messages for invalid input fields.
+ * - Redirects users to the sign-in page upon successful registration.
+ * - Uses React Bootstrap for form styling.
+ * - Provides toast notifications for user feedback.
+ *
+ * External Dependencies:
+ * - React Bootstrap (Container, Button, Form, Alert) for UI components.
+ * - React Router (useHistory, Link) for navigation.
+ * - react-toastify for user notifications.
+ * - Custom styles from Form.module.css, Button.module.css, and Container.module.css.
+ *
+ * @returns {JSX.Element} The sign-up form page.
+ */
 const SignUpForm = () => {
     const [signUpData, setSignUpData] = useState({
         username: "",
@@ -21,6 +44,11 @@ const SignUpForm = () => {
     const history = useHistory()
     useRedirect('loggedIn')
 
+    /**
+     * Handles input change in the sign-up form fields.
+     * 
+     * @param {Object} e - Event object containing input field changes.
+     */
     const handleChange = (e) => {
         setSignUpData({
             ...signUpData,
@@ -28,6 +56,13 @@ const SignUpForm = () => {
         })
     }
 
+    /**
+     * Handles form submission for signing up a user.
+     * Sends registration data to the server and redirects to sign-in on success.
+     * Displays error messages if the registration fails.
+     * 
+     * @param {Object} e - Event object for form submission.
+     */
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {

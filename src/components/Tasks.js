@@ -4,16 +4,47 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { Col, Container, Row } from "react-bootstrap";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
-import { axiosRes } from "../api/axiosDefault";
 import styles from "../styles/Tasks.module.css";
 import BtnStyles from "../styles/Button.module.css";
-import {fetchMoreData, getStatusClass, capitilizeFirstLetter, showConfirmToast } from "../utils/utils";
 
+import { axiosRes } from "../api/axiosDefault";
+import {
+  fetchMoreData,
+  getStatusClass,
+  capitilizeFirstLetter,
+  showConfirmToast,
+} from "../utils/utils";
+
+/**
+ * Tasks Component
+ * 
+ * This component displays a list of tasks with infinite scrolling.
+ * Users can view task details, check their status, and delete tasks.
+ * 
+ * Props:
+ * @param {Object} tasks - The task list object containing results and pagination info.
+ * @param {Function} setTasks - Function to update the task list state.
+ * @param {number|null} selectedCategoryId - The ID of the selected category for filtering tasks.
+
+ * External Dependencies:
+ * - react-toastify for notifications.
+ * - react-infinite-scroll-component for infinite scrolling.
+ * - react-bootstrap for UI components.
+ * 
+ * @returns {JSX.Element} The Tasks component.
+ */
 const Tasks = ({ tasks, setTasks, selectedCategoryId }) => {
+  /**
+   * Filters tasks based on the selected category.
+   */
   const filteredTasks = selectedCategoryId
     ? tasks.results.filter((task) => task.category === selectedCategoryId)
     : tasks.results;
 
+  /**
+   * Handles task deletion with a confirmation prompt.
+   * @param {number} taskId - The ID of the task to be deleted.
+   */
   const handleDelete = (taskId) => {
     showConfirmToast("Are you sure you want to delete this task?", async () => {
       try {

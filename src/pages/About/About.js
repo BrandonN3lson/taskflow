@@ -1,7 +1,26 @@
 import React from "react";
 import { Card, Col, Container, Row } from "react-bootstrap";
+
 import styles from "../../styles/About.module.css";
 
+/**
+ * About Component
+ * 
+ * This component provides an overview of the TaskFlow application, 
+ * highlighting its key features and benefits.
+ *
+ * Features:
+ * - Displays an introduction to TaskFlow.
+ * - Highlights key features such as task organization, mobile-friendliness, and web version support.
+ * - Uses Bootstrap components for styling and layout.
+ *
+ * External Dependencies:
+ * - React Bootstrap (Card, Col, Container, Row) for layout and styling.
+ * - FontAwesome icons for visual representation of features.
+ * - Custom CSS styles from About.module.css.
+ *
+ * @returns {JSX.Element} The About section for TaskFlow.
+ */
 export const About = () => {
   return (
     <Container className={`mt-5 ${styles.Container}`}>

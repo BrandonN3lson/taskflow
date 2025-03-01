@@ -1,5 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 
+/**
+ * ToggleOutside Hook
+ * 
+ * This was taken from the Code institute moments project.
+ * 
+ * This hook manages a toggle state and automatically closes it when clicking outside a referenced element.
+ * 
+ * @returns {object} { expanded, setExpanded, ref } - Provides the toggle state, setter function, and ref for element tracking.
+ */
 const ToggleOutside = () => {
   const [expanded, setExpanded] = useState(false);
   const ref = useRef(null);
