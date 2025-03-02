@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Col, Container, Row } from "react-bootstrap";
+import { Col, Container, Row, Spinner } from "react-bootstrap";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import InfiniteScroll from "react-infinite-scroll-component";
 
@@ -79,12 +79,14 @@ const TaskWidget = ({ title, filter }) => {
         <InfiniteScroll
           style={{ overflowX: "hidden", paddingLeft: "5px" }}
           dataLength={filteredTasks.results?.length}
-          loader={<p>...loading</p>}
+          loader={<p><Spinner animation="grow"><span className="sr-only">Loading...</span></Spinner></p>}
           hasMore={!!filteredTasks.next}
           next={() => fetchMoreData(filteredTasks, setFilteredTasks)}
           scrollableTarget="taskWidgetScroll"
         >
-          {tasksToDisplay.map((task) => (
+          {tasksToDisplay.length ? (
+            <>
+              {tasksToDisplay.map((task) => (
             <Row
               key={task.id}
               className={`text-center d-flex justify-content-between ${styles.Row}`}
@@ -109,6 +111,14 @@ const TaskWidget = ({ title, filter }) => {
               </Col>
             </Row>
           ))}
+            </>) : (
+              <>
+              <Row>
+                <Col>
+                <p>No tasks to display</p>
+                </Col>
+              </Row>
+              </>)}
         </InfiniteScroll>
       </div>
     </Container>

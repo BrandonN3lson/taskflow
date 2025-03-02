@@ -10,6 +10,7 @@ import {
   Dropdown,
   Form,
   Row,
+  Spinner,
 } from "react-bootstrap";
 
 import styles from "../../styles/TaskDetail.module.css";
@@ -324,7 +325,7 @@ const TaskDetail = () => {
               msOverflowStyle: "none",
             }}
             dataLength={taskFiles.results?.length}
-            loader={<p>loading files...</p>}
+            loader={<p><Spinner animation="grow"><span className="sr-only">Loading...</span></Spinner></p>}
             hasMore={!!taskFiles.next}
             next={() => fetchMoreData(taskFiles, setTaskFiles)}
           >

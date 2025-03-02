@@ -9,6 +9,7 @@ import {
   Dropdown,
   Form,
   Row,
+  Spinner,
 } from "react-bootstrap";
 
 import styles from "../styles/Category.module.css";
@@ -128,7 +129,7 @@ const Category = ({ sm, md, selectedCategory, onCategorySelect }) => {
                   <InfiniteScroll
                     style={{ overflowX: "hidden" }}
                     dataLength={categories.results?.length}
-                    loader={<p>...loading</p>}
+                    loader={<p><Spinner animation="grow"><span className="sr-only">Loading...</span></Spinner></p>}
                     hasMore={!!categories.next}
                     next={() => fetchMoreData(categories, setCategories)}
                     scrollableTarget="DropdownMenue"
@@ -263,7 +264,7 @@ const Category = ({ sm, md, selectedCategory, onCategorySelect }) => {
               <InfiniteScroll
                 style={{ overflowX: "hidden" }}
                 dataLength={categories.results?.length}
-                loader={<p>...loading</p>}
+                loader={<p><Spinner animation="grow"><span className="sr-only">Loading...</span></Spinner></p>}
                 hasMore={!!categories.next}
                 next={() => fetchMoreData(categories, setCategories)}
                 scrollableTarget="scrollableDiv"

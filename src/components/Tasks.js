@@ -1,7 +1,7 @@
 import React from "react";
 import { toast } from "react-toastify";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { Col, Container, Row } from "react-bootstrap";
+import { Col, Container, Row, Spinner } from "react-bootstrap";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 import styles from "../styles/Tasks.module.css";
@@ -72,7 +72,7 @@ const Tasks = ({ tasks, setTasks, selectedCategoryId }) => {
       <InfiniteScroll
         style={{ overflowX: "hidden" }}
         dataLength={tasks.results?.length}
-        loader={<p>...loading</p>}
+        loader={<p><Spinner animation="grow"><span className="sr-only">Loading...</span></Spinner></p>}
         hasMore={!!tasks.next}
         next={() => fetchMoreData(tasks, setTasks)}
       >
