@@ -54,7 +54,7 @@ const TaskWidget = ({ title, filter }) => {
         );
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   }, [filter])
 

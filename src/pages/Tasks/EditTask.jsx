@@ -65,7 +65,7 @@ const EditTask = () => {
           due_date: formattedDate,
         });
       } catch (error) {
-        console.log(error);
+        // console.log(error);
       }
     };
     handleMount();

@@ -54,7 +54,7 @@ const DashBoard = () => {
         fetchMoreData({ next: data.next, results: data.results }, setTasks);
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 
@@ -80,7 +80,7 @@ const DashBoard = () => {
         <>
           <Row className={` d-none d-md-flex ${styles.Row}`}>
             <Col className="col-auto">
-              <TaskWidget title={"important"} filter={"important"} />
+              <TaskWidget title={"Important"} filter={"important"} />
             </Col>
             <Col className="col-auto">
               <TaskWidget title={"Due Soon"} filter={"due_soon"} />

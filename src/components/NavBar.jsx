@@ -51,7 +51,7 @@ export const NavBar = () => {
       history.push("/signin");
       removeTokenTimestamp();
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 

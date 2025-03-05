@@ -55,7 +55,7 @@ const Tasks = ({ tasks, setTasks, selectedCategoryId }) => {
         }));
         toast.success("Task deleted successfully!");
       } catch (error) {
-        console.log(error);
+        // console.log(error);
         toast.error("Failed to delete task");
       }
     });

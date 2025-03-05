@@ -83,7 +83,7 @@ const TaskDetail = () => {
       const { data } = await axiosReq.get(`/tasks/${taskId}/`);
       setTask(data);
     } catch (error) {
-      console.error("Error fetching task details:", error);
+      // console.error("Error fetching task details:", error);
     }
   }, [taskId]);
 
@@ -103,7 +103,7 @@ const TaskDetail = () => {
         next: data.next,
       }));
     } catch (error) {
-      console.log(error.response?.data);
+      // console.log(error.response?.data);
     }
   },[taskId])
 
@@ -143,7 +143,7 @@ const TaskDetail = () => {
       toast.success("File uploaded to task!")
       fetchTaskFiles();
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       toast.error("Failed to upload file")
     }
   };
@@ -166,7 +166,7 @@ const TaskDetail = () => {
         fetchTaskFiles();
         toast.success("File deleted!")
       } catch (error) {
-        console.log(error);
+        // console.log(error);
         toast.error("Failed to delete file")
       }
     })

@@ -99,7 +99,7 @@ const Category = ({ sm, md, selectedCategory, onCategorySelect }) => {
           await handleFetchCategories();
           toast.success("category deleted!");
         } catch (error) {
-          console.log(error);
+          // console.log(error);
           toast.error("Failed to delete category");
         }
       }
