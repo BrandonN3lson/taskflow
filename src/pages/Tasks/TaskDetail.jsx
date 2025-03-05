@@ -309,6 +309,7 @@ const TaskDetail = () => {
                   className={styles.TaskEditButton}
                   aria-label="edit task files"
                 >
+                  <p className="sr-only">Edit task files</p>
                   <i
                     className={
                       isEditMode ? "fa-solid fa-xmark" : "fa-solid fa-pencil"
@@ -355,6 +356,7 @@ const TaskDetail = () => {
                           onClick={() => handleDeleteFile(file.id)}
                           className={`${styles.TaskFileDeleteButton}`}
                         >
+                          <p className="sr-only">Delete File</p>
                           <i className="fa-regular fa-trash-can"></i>
                         </button>
                       )}
