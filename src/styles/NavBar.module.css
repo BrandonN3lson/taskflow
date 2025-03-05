@@ -2,6 +2,10 @@
     background-color:  #2D2D2D;
 }
 
+.NavBarContainer {
+    width: 100%;
+}
+
 .NavLink {
     margin-right: 1rem;
 }

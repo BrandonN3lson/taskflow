@@ -19,7 +19,7 @@ import taskStyles from "../../styles/Tasks.module.css";
 import { axiosReq, axiosRes } from "../../api/axiosDefault";
 import { useCategories } from "../../context/CategoryContext";
 import { fetchMoreData, showConfirmToast } from "../../utils/utils";
-import { getStatusClass, capitilizeFirstLetter  } from "../../utils/utils";
+import { getStatusClass, capitalizeFirstLetter  } from "../../utils/utils";
 import { useRedirect } from "../../hooks/useRedirect";
 
 /**
@@ -220,16 +220,16 @@ const TaskDetail = () => {
         <Row className="mb-2">
           <Col className={`${priority === "none" ? "d-none" : ""}`}>
             <h5 className={`${styles.Priority} ${priority ? styles.PriorityHigh : ""}`}>
-              {capitilizeFirstLetter(priority)}
+              {capitalizeFirstLetter(priority)}
             </h5>
           </Col>
           <Col className="text-right">
-            <span className={`${styles.Category}`}>{capitilizeFirstLetter(categoryName)}</span>
+            <span className={`${styles.Category}`}>{capitalizeFirstLetter(categoryName)}</span>
           </Col>
         </Row>
         <Row className="mb-3">
           <Col>
-            <h2 className={`${styles.TaskTitle}`}>{capitilizeFirstLetter(title)}</h2>
+            <h2 className={`${styles.TaskTitle}`}>{capitalizeFirstLetter(title)}</h2>
           </Col>
         </Row>
         <Row className="mb-3">
@@ -239,12 +239,15 @@ const TaskDetail = () => {
             </p>
           </Col>
           <Col className="text-right">
-            <p className={`${styles.CategoryTitle} ${getStatusClass(taskStyles, task.status)}`}>
+            <p id="statusDropdownLabel" className={`${getStatusClass(taskStyles, task.status)}`}>
               {statusChoices.find(([value]) => value === task.status)?.[1] ||
-                task.status}
+                task.status}</p>
               <Dropdown className="d-inline">
                 <Dropdown.Toggle
                   variant="link"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                  aria-labelledby="statusDropdownLabel"
                   className={styles.ToggleStatusButton}
                 >
                   <i className="bi bi-caret-down-fill"></i>
@@ -264,12 +267,12 @@ const TaskDetail = () => {
                   ))}
                 </Dropdown.Menu>
               </Dropdown>
-            </p>
+            
           </Col>
         </Row>
         <Row>
           <Col className="d-flex">
-            <p className={`${styles.Description}`}>{capitilizeFirstLetter(description)}</p>
+            <p className={`${styles.Description}`}>{capitalizeFirstLetter(description)}</p>
           </Col>
         </Row>
 

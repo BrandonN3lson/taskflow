@@ -71,7 +71,7 @@ const SignInForm = () => {
       const { data } = await axiosRes.post("/dj-rest-auth/login/", signInData);
       setCurrentUser(data.user);
       setTokeTimestamp(data);
-      history.goBack();
+      history.push("/");
       toast.success(`Welcome ${data.user.username}`)
     } catch (error) {
       setErrors((prevState) => ({
@@ -88,9 +88,9 @@ const SignInForm = () => {
   return (
     <Container className={` text-center ${ContainerStyles.Container}`}>
       <Form className={styles.Form} onSubmit={handleSubmit}>
-        <Form.Text className={`text-center ${styles.FormText}`}>
+        <div className={`text-center ${styles.FormText}`}>
           <h1>Sign In</h1>
-        </Form.Text>
+        </div>
         <Form.Group className="mb-3" controlId="username">
           <Form.Label className="d-none">Username</Form.Label>
           <Form.Control

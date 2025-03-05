@@ -11,7 +11,7 @@ import { axiosRes } from "../api/axiosDefault";
 import {
   fetchMoreData,
   getStatusClass,
-  capitilizeFirstLetter,
+  capitalizeFirstLetter,
   showConfirmToast,
 } from "../utils/utils";
 
@@ -88,7 +88,7 @@ const Tasks = ({ tasks, setTasks, selectedCategoryId }) => {
               sm="7"
               className={`p-left-0 m-0 ${styles.ColTitle}`}
             >
-              <p className={styles.Task}>{capitilizeFirstLetter(task.title)}</p>
+              <p className={styles.Task}>{capitalizeFirstLetter(task.title)}</p>
             </Col>
             <Col
               xs="auto"

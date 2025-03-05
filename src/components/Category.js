@@ -21,7 +21,7 @@ import { axiosReq, axiosRes } from "../api/axiosDefault";
 import {
   fetchMoreData,
   showConfirmToast,
-  capitilizeFirstLetter,
+  capitalizeFirstLetter,
 } from "../utils/utils";
 
 /**
@@ -36,7 +36,7 @@ import {
  * @param {boolean} md - Determines if the medium screen version should be displayed.
  * @param {string} selectedCategory - The currently selected category.
  * @param {Function} onCategorySelect - Callback function triggered when a category is selected.
- * 
+ *
  * @returns {JSX.Element} The Category component.
  */
 const Category = ({ sm, md, selectedCategory, onCategorySelect }) => {
@@ -111,10 +111,16 @@ const Category = ({ sm, md, selectedCategory, onCategorySelect }) => {
       {sm && (
         <Container>
           <div className={`text-center ${styles.DropdownContainer}`}>
-            <h1 className={styles.CategoryTitle}>
-              {selectedCategory}
+            <div className={`d-flex justify-content-center align-items-center`}>
+              <h1 id="categoryDropdownLabel" className={styles.CategoryTitle}>{selectedCategory}</h1>
               <Dropdown className="d-inline">
-                <Dropdown.Toggle variant="link" className={styles.ToggleButton}>
+                <Dropdown.Toggle
+                  variant="link"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                  aria-labelledby="categoryDropdownLabel"
+                  className={styles.ToggleButton}
+                >
                   <i className="bi bi-caret-down-fill"></i>
                 </Dropdown.Toggle>
 
@@ -129,7 +135,13 @@ const Category = ({ sm, md, selectedCategory, onCategorySelect }) => {
                   <InfiniteScroll
                     style={{ overflowX: "hidden" }}
                     dataLength={categories.results?.length}
-                    loader={<p><Spinner animation="grow"><span className="sr-only">Loading...</span></Spinner></p>}
+                    loader={
+                      <p>
+                        <Spinner animation="grow">
+                          <span className="sr-only">Loading...</span>
+                        </Spinner>
+                      </p>
+                    }
                     hasMore={!!categories.next}
                     next={() => fetchMoreData(categories, setCategories)}
                     scrollableTarget="DropdownMenue"
@@ -142,7 +154,7 @@ const Category = ({ sm, md, selectedCategory, onCategorySelect }) => {
                           handleSelect(category.title, category.id)
                         }
                       >
-                        {capitilizeFirstLetter(category.title)}
+                        {capitalizeFirstLetter(category.title)}
                         <span
                           className={`${styles.DeleteIcon} ${BtnStyles.MobileToggleDeleteIcon}`}
                           onClick={(e) => {
@@ -157,7 +169,7 @@ const Category = ({ sm, md, selectedCategory, onCategorySelect }) => {
                   </InfiniteScroll>
                 </Dropdown.Menu>
               </Dropdown>
-            </h1>
+            </div>
 
             <div>
               <Form onSubmit={handleSubmitCategory}>
@@ -264,7 +276,13 @@ const Category = ({ sm, md, selectedCategory, onCategorySelect }) => {
               <InfiniteScroll
                 style={{ overflowX: "hidden" }}
                 dataLength={categories.results?.length}
-                loader={<p><Spinner animation="grow"><span className="sr-only">Loading...</span></Spinner></p>}
+                loader={
+                  <p>
+                    <Spinner animation="grow">
+                      <span className="sr-only">Loading...</span>
+                    </Spinner>
+                  </p>
+                }
                 hasMore={!!categories.next}
                 next={() => fetchMoreData(categories, setCategories)}
                 scrollableTarget="scrollableDiv"
@@ -277,7 +295,7 @@ const Category = ({ sm, md, selectedCategory, onCategorySelect }) => {
                   >
                     <div className={styles.CategoryItem}>
                       <p className={`${styles.CategoryText}`}>
-                        {capitilizeFirstLetter(category.title)}
+                        {capitalizeFirstLetter(category.title)}
                       </p>
                       <span
                         className={`${styles.DeleteIcon} ${BtnStyles.ToggleDeleteIcon}`}

@@ -35,6 +35,7 @@
 }
 
 .AddCategory, .ToggleDeleteIcon {
+    color: #fff;
     margin: 0;
     border: 0;
     background-color: transparent;

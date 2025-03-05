@@ -32,7 +32,7 @@ export const getStatusClass = (styles, taskStatus) => {
   }
 };
 
-export const capitilizeFirstLetter = (str) => {
+export const capitalizeFirstLetter = (str) => {
   return str.charAt(0).toUpperCase() + str.slice(1);
 };
 

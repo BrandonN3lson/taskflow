@@ -27,7 +27,6 @@
   color: red;
 }
 
-
 /* Category */
 .Category {
   font-size: 14px;
@@ -87,70 +86,68 @@
 }
 
 .TaskFile {
-    font-size: 2.5rem;
-    white-space: nowrap;
-    display: flex;
-    flex-direction: column;
-    text-overflow: ellipsis; 
+  font-size: 2.5rem;
+  white-space: nowrap;
+  display: flex;
+  flex-direction: column;
+  text-overflow: ellipsis;
 }
 
 .TaskFileText {
-    font-size: 13px;
+  font-size: 13px;
 }
-
 
 .TaskEditButton {
-    margin-right: 1rem;
-    margin-bottom: 1rem;
-    color: #fff;
-    font-size: 1.5rem;
-    border: none;
-    background-color: transparent;
-    transition: color ease-in-out 0.3s;
+  margin-right: 1rem;
+  margin-bottom: 1rem;
+  color: #fff;
+  font-size: 1.5rem;
+  border: none;
+  background-color: transparent;
+  transition: color ease-in-out 0.3s;
 }
 
-.TaskEditButton:hover{
-    color: #ff4081;
-    transition: color ease-in-out 0.3s;
+.TaskEditButton:hover {
+  color: #ff4081;
+  transition: color ease-in-out 0.3s;
 }
 .TaskFileDeleteButton {
-    color: #ff4081;
-    font-size: 1.5rem;
-    border: none;
-    background-color: transparent;
-    transition: color ease-in-out 0.3s;
+  color: #ff4081;
+  font-size: 1.5rem;
+  border: none;
+  background-color: transparent;
+  transition: color ease-in-out 0.3s;
 }
 
 .TaskFileDeleteButton:hover {
-    color: #fff;
-    transition: color ease-in-out 0.3s;
+  color: #fff;
+  transition: color ease-in-out 0.3s;
 }
 
 .Row {
-    width: 300px;
-    height: 150px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
+  width: 300px;
+  height: 150px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 
 #scrolltaskfiles::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 
 .TaskRow {
-    display: flex;
-    flex-wrap: wrap;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .Col {
-    overflow: hidden; 
-    max-width: 100px;
+  overflow: hidden;
+  max-width: 100px;
 }
 
 @media screen and (max-width: 768px) {
   .TaskDetailContainer {
     width: 100%;
   }
-
 }

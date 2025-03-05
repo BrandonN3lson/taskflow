@@ -75,14 +75,14 @@ const TaskWidget = ({ title, filter }) => {
           <p className={`${styles.Task} p-1 m-0`}>{title}</p>
         </Col>
       </Row>
-      <div id="taskWidgetScroll" className={styles.TaskContainerDiv}>
+      <div className={styles.TaskContainerDiv}>
         <InfiniteScroll
           style={{ overflowX: "hidden", paddingLeft: "5px" }}
           dataLength={filteredTasks.results?.length}
           loader={<p><Spinner animation="grow"><span className="sr-only">Loading...</span></Spinner></p>}
           hasMore={!!filteredTasks.next}
           next={() => fetchMoreData(filteredTasks, setFilteredTasks)}
-          scrollableTarget="taskWidgetScroll"
+          
         >
           {tasksToDisplay.length ? (
             <>

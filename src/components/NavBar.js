@@ -12,7 +12,7 @@ import {
   useCurrentUser,
   useSetCurrentUser,
 } from "../context/CurrentUserContext";
-import { capitilizeFirstLetter, removeTokenTimestamp } from "../utils/utils";
+import { capitalizeFirstLetter, removeTokenTimestamp } from "../utils/utils";
 
 /**
  * NavBar Component
@@ -131,7 +131,7 @@ export const NavBar = () => {
       fixed="top"
       className={`px-3 ${styles.NavBar}`}
     >
-      <Container fluid width="100%">
+      <Container fluid className={styles.NavBarContainer}>
         <Navbar.Toggle
           ref={ref}
           onClick={() => setExpanded(!expanded)}
@@ -153,11 +153,11 @@ export const NavBar = () => {
         <div>
           <Navbar.Text>
             {currentUser ? (
-              <p className={styles.User}>
-                {capitilizeFirstLetter(currentUser?.username)}
-              </p>
+              <span className={styles.User}>
+                {capitalizeFirstLetter(currentUser?.username)}
+              </span>
             ) : (
-              <p className={styles.User}>please log in</p>
+              <span className={styles.User}>please log in</span>
             )}
           </Navbar.Text>
         </div>
