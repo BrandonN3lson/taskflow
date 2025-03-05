@@ -112,7 +112,9 @@ const Category = ({ sm, md, selectedCategory, onCategorySelect }) => {
         <Container>
           <div className={`text-center ${styles.DropdownContainer}`}>
             <div className={`d-flex justify-content-center align-items-center`}>
-              <h1 id="categoryDropdownLabel" className={styles.CategoryTitle}>{selectedCategory}</h1>
+              <h1 id="categoryDropdownLabel" className={styles.CategoryTitle}>
+                {selectedCategory}
+              </h1>
               <Dropdown className="d-inline">
                 <Dropdown.Toggle
                   variant="link"
@@ -277,11 +279,9 @@ const Category = ({ sm, md, selectedCategory, onCategorySelect }) => {
                 style={{ overflowX: "hidden" }}
                 dataLength={categories.results?.length}
                 loader={
-                  <p>
-                    <Spinner animation="grow">
-                      <span className="sr-only">Loading...</span>
-                    </Spinner>
-                  </p>
+                  <Spinner animation="grow">
+                    <span className="sr-only">Loading...</span>
+                  </Spinner>
                 }
                 hasMore={!!categories.next}
                 next={() => fetchMoreData(categories, setCategories)}

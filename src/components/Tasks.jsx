@@ -72,7 +72,7 @@ const Tasks = ({ tasks, setTasks, selectedCategoryId }) => {
       <InfiniteScroll
         style={{ overflowX: "hidden" }}
         dataLength={tasks.results?.length}
-        loader={<p><Spinner animation="grow"><span className="sr-only">Loading...</span></Spinner></p>}
+        loader={<Spinner animation="grow"><span className="sr-only">Loading...</span></Spinner>}
         hasMore={!!tasks.next}
         next={() => fetchMoreData(tasks, setTasks)}
       >

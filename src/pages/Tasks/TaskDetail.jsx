@@ -328,7 +328,7 @@ const TaskDetail = () => {
               msOverflowStyle: "none",
             }}
             dataLength={taskFiles.results?.length}
-            loader={<p><Spinner animation="grow"><span className="sr-only">Loading...</span></Spinner></p>}
+            loader={<Spinner animation="grow"><span className="sr-only">Loading...</span></Spinner>}
             hasMore={!!taskFiles.next}
             next={() => fetchMoreData(taskFiles, setTaskFiles)}
           >
