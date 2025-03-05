@@ -307,6 +307,7 @@ const TaskDetail = () => {
                 <button
                   onClick={handleEditToggle}
                   className={styles.TaskEditButton}
+                  aria-label="edit task files"
                 >
                   <i
                     className={
