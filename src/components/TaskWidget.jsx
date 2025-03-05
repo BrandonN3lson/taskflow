@@ -79,7 +79,7 @@ const TaskWidget = ({ title, filter }) => {
         <InfiniteScroll
           style={{ overflowX: "hidden", paddingLeft: "5px" }}
           dataLength={filteredTasks.results?.length}
-          loader={<p><Spinner animation="grow"><span className="sr-only">Loading...</span></Spinner></p>}
+          loader={<Spinner animation="grow"><span className="sr-only">Loading...</span></Spinner>}
           hasMore={!!filteredTasks.next}
           next={() => fetchMoreData(filteredTasks, setFilteredTasks)}
           

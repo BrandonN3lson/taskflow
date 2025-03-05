@@ -41,7 +41,7 @@ const AddTask = () => {
     category: "",
     description: "",
     priority: "none",
-    due_date: null,
+    due_date: "",
   });
   const { title, description, priority, due_date } = taskData;
 
@@ -176,14 +176,14 @@ const AddTask = () => {
                     className={styles.FormInput}
                     type="date"
                     name="due_date"
-                    value={due_date}
+                    value={due_date || ""}
                     onChange={handleChange}
                   />
                 </Col>
               </Row>
             </Form.Group>
 
-            <Button className={BtnStyles.Button} type="submit">
+            <Button className={BtnStyles.Button} type="submit" aria-label="add task">
               Add
             </Button>
           </Form>

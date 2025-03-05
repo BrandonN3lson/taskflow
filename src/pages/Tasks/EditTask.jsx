@@ -42,7 +42,7 @@ const EditTask = () => {
     category: "",
     description: "",
     priority: "none",
-    due_date: null,
+    due_date: "",
   });
   const { title, description, priority, due_date } = taskData;
 
@@ -207,7 +207,7 @@ const EditTask = () => {
                 className={styles.FormInput}
                 type="date"
                 name="due_date"
-                value={due_date}
+                value={due_date || ""}
                 onChange={handleChange}
               />
             </Col>
@@ -215,13 +215,14 @@ const EditTask = () => {
         </Form.Group>
         <Row>
           <Col>
-            <Button className={BtnStyles.Button} type="submit">
+            <Button className={BtnStyles.Button} type="submit" aria-label="Update task">
               Update
             </Button>
           </Col>
           <Button
             className={BtnStyles.Button}
             type="button"
+            aria-label="cancel"
             onClick={() => {
               history.push(`/task-detail/${taskId}`);
             }}
