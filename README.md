@@ -8,6 +8,19 @@ Deployed Website Links
 - View live API here -[Taskflow DRF API](https://task-flow-drf-api-6a658d5dbfee.herokuapp.com/)
 - View API README.md here -[TaskFLow DRF API README.md](https://github.com/BrandonN3lson/taskflow-drf)
 
+## Contents
+- [About](#about)
+- [Features](#features)
+- [Usage](#usage)
+- [Installation](#installation)
+- [Technologies Used](#technologies-used)
+- [Frontend Design](#frontend-design)
+- [Deployment](#deployment)
+- [Testing and Validation](#testing-and-validation)
+- [Manual Testing Table](#manual-testing-table)
+- [References](#references)
+---
+
 ## About
 
 TaskFlow is a productivity application designed to help users manage their tasks effectively. It provides an intuitive interface for, organizing tasks by category, and maintaining progress over time.
@@ -31,15 +44,14 @@ TaskFlow is a productivity application designed to help users manage their tasks
 6. Edit the task details by clicking on the edit button at the top right of the 
 7. upload files to an appointed task in the task detail page, you can also delete these tasks by clicking on the edit button beside the task files
 
-### How to Fork
-
-   To fork the repository:
+## Installation
+   #### How to Fork:
 
    1. Log in (or sign up) to Github.
    2. Go to the repository for this project, brandonn3lson/taskflow.
    3. Click the Fork button in the top right corner.
 
-#### How to Clone
+   #### How to Clone:
    1. Find the repository for this project, taskflow
    2. **Get the Clone URL** Click on the green "Code" button and copy the URL that appears.
    3. Open Terminal or Command Prompt: Open the Terminal (Mac/Linux) or Command Prompt (Windows).
@@ -50,7 +62,7 @@ TaskFlow is a productivity application designed to help users manage their tasks
 
 ## Technologies Used
 
-- **Frontend:** React, React Context API
+- **Frontend:** React
 - **Backend:** Django Rest Framework (DRF)
 - **Database:** PostgreSQL
 - **Authentication:** JWT (JSON Web Tokens)
