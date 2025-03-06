@@ -1,70 +1,150 @@
-# Getting Started with Create React App
+# TaskFlow
+![taskflow drf image](./src/assets/images/Responsive-website-image.png)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Deployed Website Links
+-------------------
+- View live site here - [TaskFlow](https://taskflow-react-app-6836213131c6.herokuapp.com/)
 
-## Available Scripts
+- View live API here -[Taskflow DRF API](https://task-flow-drf-api-6a658d5dbfee.herokuapp.com/)
+- View API README.md here -[TaskFLow DRF API README.md](https://github.com/BrandonN3lson/taskflow-drf)
 
-In the project directory, you can run:
+## About
 
-### `npm start`
+TaskFlow is a productivity application designed to help users manage their tasks effectively. It provides an intuitive interface for, organizing tasks by category, and maintaining progress over time.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Features
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- Task management with priority and status settings (MoSCoW prioritization)
+- Displays tasks due within the Current week.
+- Organize tasks by category.
+- File attachments for tasks (PDFs, images, etc.)
+- User authentication and session management.
+- Notifications using [react-toastify](https://fkhadra.github.io/react-toastify/migration-v8).
+- Responsive design for a seamless experience across devices.
 
-### `npm test`
+## Usage
+1. Register with a user and password
+2. Log in to your account
+3. Create a category/s in the main dashboard
+4. Create a Task by clicking add Task Link on the Navigation bar and fill in the form and submit
+5. To view task details, click on the task
+6. Edit the task details by clicking on the edit button at the top right of the 
+7. upload files to an appointed task in the task detail page, you can also delete these tasks by clicking on the edit button beside the task files
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### How to Fork
 
-### `npm run build`
+   To fork the repository:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+   1. Log in (or sign up) to Github.
+   2. Go to the repository for this project, brandonn3lson/taskflow.
+   3. Click the Fork button in the top right corner.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+#### How to Clone
+   1. Find the repository for this project, taskflow
+   2. **Get the Clone URL** Click on the green "Code" button and copy the URL that appears.
+   3. Open Terminal or Command Prompt: Open the Terminal (Mac/Linux) or Command Prompt (Windows).
+   4. Navigate to the Directory: Use the cd command to go to the folder where you want to put the cloned repository.
+   5. Clone the Repository: Type git clone, paste the URL you copied, and press Enter.
+   6. Wait for it to Finish: It might take a moment. Once it's done, you'll see a message.
+   7. Done!: You now have a copy of the repository on your computer.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Technologies Used
 
-### `npm run eject`
+- **Frontend:** React, React Context API
+- **Backend:** Django Rest Framework (DRF)
+- **Database:** PostgreSQL
+- **Authentication:** JWT (JSON Web Tokens)
+- **Styling:** react-Bootstrap 4, custom CSS
+- **Notifications:** [react-toastify](https://fkhadra.github.io/react-toastify/migration-v8)
+- **Cloud Storage:** Cloudinary (for images and file uploads)
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Deployment
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+This website has been deloyed using Heruko.
+The link to the website is at the start of the Readme.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Testing and Validation
+   ### Validators Used
+   - W3C Validator
+   - jigsaw css validator
+   - Lighthouse
+   - eslint
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+   ### W3C Validator
+   - [Sign up page](./src/assets/images/w3c-validator-sign-up.png)
+   - [Sign In page](./src/assets/images/w3c-html-validator-sign-in.png)
+   - [Dashboard](./src/assets/images/w3c-validator-dashboard.png)
+   - [About page](./src/assets/images/w3c-validator-about.png)
+   - [Add Task page](./src/assets/images/w3c-validator-add-task-form.png)
+   - [Task Detail page](./src/assets/images/w3c-validator-task-detail.png)
+   - [Edit Task page](./src/assets/images/w3c-validator-edit-task-form.png)
 
-## Learn More
+   ### Jigsaw Css Validator
+   All custom css passed the validator - [View here](./src/assets/images/css-validator.png)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+   ### Lighthouse
+   - #### Sign Up page
+      - [Mobile](./src/assets/images/lighthouse-signup-mobile.png)
+      - [Desktop](./src/assets/images/lighthouse-signup-desktop.png)
+   - #### Sign In page
+      - [Mobile](./src/assets/images/lighthouse-signin-mobile.png)
+      - [Desktop](./src/assets/images/lighthouse-signin-desktop.png)
+   - #### Dashboard page
+      - [Mobile](./src/assets/images/lighthouse-dashboard-mobile.png)
+      - [Desktop](./src/assets/images/lighthouse-dashboard-desktop.png)
+   - #### About page
+      - [Mobile](./src/assets/images/lighthouse-about-mobile.png)
+      - [Desktop](./src/assets/images/lighthouse-about-desktop.png)
+   - #### Add Task page
+      - [Mobile](./src/assets/images/lighthouse-addtask-mobile.png)
+      - [Desktop](./src/assets/images/lighthouse-addtask-desktop.png)
+   - #### Task Detail page
+      - [Mobile](./src/assets/images/lighthouse-taskdetail-mobile.png)
+      - [Desktop](./src/assets/images/lighthouse-taskdetail-desktop.png)
+   - #### Edit Task page
+      - [Mobile](./src/assets/images/lighthouse-edittask-mobile.png)
+      - [Desktop](./src/assets/images/lighthouse-edittask-desktop.png)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+   ### ESLINT
+   Installed ESLINT to validate react jsx code, no errors found.
 
-### Code Splitting
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-### Analyzing the Bundle Size
+### Manual Testing Table
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+| Feature               | Test Case Description                      | Expected Result                      | Status |
+| --------------------- | ------------------------------------------ | ------------------------------------ | ------ |
+| User Registration     | Register a new user with valid credentials | Account successfully created         | ✅      |
+| Invalid User Registration | Register a new user with empty username and or password | Error message displayed | ✅      |
+| User Login            | Login with correct credentials             | User successfully logged in          | ✅      |
+| Invalid Login         | Attempt login with incorrect credentials   | Error message displayed              | ✅      |
+| Task Creation         | Add a new task with title and description  | Task appears in task list            | ✅      |
+| Invalid Task Creation | Add task with empty title and or category  | Error message displayed              | ✅      |
+| Task Editing          | Modify an existing task                    | Task updates correctly               | ✅      |
+| Task Deletion         | Delete a task from the list                | Task removed from UI and database    | ✅      |
+| File Attachment       | Upload an image or PDF to a task           | File successfully attached           | ✅      |
+| Category Creation     | Add a new category                         | Category appears in category list    | ✅      |
+| Invalid Category Creation | attempt to add an empty category title | Error message displayed              | ✅      |
+| Category Filtering    | View tasks based on selected category      | Only tasks from that category shown  | ✅      |
+| Mobile Responsiveness | Open the app on a mobile device            | UI adapts correctly                  | ✅      |
+| Logout                | User logs out                              | Session ends, redirect to login page | ✅      |
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## References
+- [Code Institute](https://codeinstitute.net/)
+- [React Documentation](https://reactjs.org/docs/getting-started.html)
+- [Django Rest Framework](https://www.django-rest-framework.org/)
+- [PostgreSQL Documentation](https://www.postgresql.org/docs/)
+- [Cloudinary API](https://cloudinary.com/documentation)
+- [React-toastify](https://fkhadra.github.io/react-toastify/migration-v8)
+- ***Hooks***
+   - toggleOutside - Code institute moments react project
+	- useRedirect - Code Institute Moments react project
+- ***Context***
+	- CurrentUserContext - Code Institute Moments react project
+- ***helper functions(Utils.jsx)***
+	- [capitilizeFirstLetter](https://codedamn.com/news/javascript/how-to-capitalize-first-letter-in-javascript)
+	
+	- fetchMoreData - Code Institute moments react project
+    - setTokenStamp - Code Institute moments react project
+    - shouldRefreshToken - Code Institute moments react project
+    - removeTokenTimestamp - Code Institute moments react project
