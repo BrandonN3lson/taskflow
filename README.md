@@ -58,6 +58,12 @@ TaskFlow is a productivity application designed to help users manage their tasks
 - **Notifications:** [react-toastify](https://fkhadra.github.io/react-toastify/migration-v8)
 - **Cloud Storage:** Cloudinary (for images and file uploads)
 
+## Frontend Design
+- [Balsamic](https://balsamiq.com/product/)
+  - [Dashboard page design](./src/assets/images/TaskFlow-indexPage-WireFrame.png)
+  - [Task Detail Page design](./src/assets/images/task-detail-page-TaskFlow.png)
+  - [User Authentication pages design](./src/assets/images/user-auth-pages-taskflow.png)
+
 ## Deployment
 
 This website has been deloyed using Heruko.
