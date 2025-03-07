@@ -18,6 +18,7 @@ Deployed Website Links
 - [Deployment](#deployment)
 - [Testing and Validation](#testing-and-validation)
 - [Manual Testing Table](#manual-testing-table)
+- [Planned Features and Future Enhancements](#planned-features-and-future-enhancements)
 - [References](#references)
 ---
 
@@ -160,6 +161,13 @@ The link to the website is at the start of the Readme.
 | Category Filtering    | View tasks based on selected category      | Only tasks from that category shown  | ✅      |
 | Mobile Responsiveness | Open the app on a mobile device            | UI adapts correctly                  | ✅      |
 | Logout                | User logs out                              | Session ends, redirect to login page | ✅      |
+
+## Planned Features and Future Enhancements
+- Password reset feature
+- email/sms notifications for when Tasks are almost overdue
+- A Daily habbit tracker
+- A text formatter for task descriptions, to be able to add checkboxes, bulletpoints, different font sizes etc...
+- labels - be able to create custom labels and add them to tasks and to be able to filter tasks by labels
 
 ## References
 - [Code Institute](https://codeinstitute.net/)
