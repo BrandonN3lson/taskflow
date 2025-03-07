@@ -37,12 +37,26 @@ TaskFlow is a productivity application designed to help users manage their tasks
 
 ## Usage
 1. Register with a user and password
-2. Log in to your account
+2. Log in to your account 
+
+<img src="./src/assets/images/signing-in.gif" style="width: 500px; height: auto;">
+
 3. Create a category/s in the main dashboard
+
+<img src="./src/assets/images/adding-categories.gif" style="width: 500px; height: auto;">
+
 4. Create a Task by clicking add Task Link on the Navigation bar and fill in the form and submit
 5. To view task details, click on the task
-6. Edit the task details by clicking on the edit button at the top right of the 
+
+<img src="./src/assets/images/adding-tasks.gif" style="width: 500px; height: auto;">
+
+6. Edit the task details by clicking on the edit button at the top right of the task detail page.
+
+<img src="./src/assets/images/editing-task.gif" style="width: 500px; height: auto;">
+
 7. upload files to an appointed task in the task detail page, you can also delete these tasks by clicking on the edit button beside the task files
+
+<img src="./src/assets/images/adding-and-deleting-task-files.gif" style="width: 500px; height: auto;">
 
 ## Installation
    #### How to Fork:

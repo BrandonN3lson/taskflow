@@ -55,7 +55,7 @@ export const CurrentUserProvider = ({ children }) => {
               refresh: window.localStorage.getItem("refreshTokenTimestamp"),
             });
           } catch (err) {
-            console.log(err.response.data);
+            // console.log(err.response.data);
             setCurrentUser((prevCurrentUser) => {
               if (prevCurrentUser) {
                 history.push("/signin");

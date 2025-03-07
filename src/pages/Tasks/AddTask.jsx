@@ -41,7 +41,7 @@ const AddTask = () => {
     category: "",
     description: "",
     priority: "none",
-    due_date: "",
+    due_date: null,
   });
   const { title, description, priority, due_date } = taskData;
 

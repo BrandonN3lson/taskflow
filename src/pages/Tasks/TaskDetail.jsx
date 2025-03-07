@@ -186,7 +186,8 @@ const TaskDetail = () => {
       await axiosReq.patch(`/tasks/${taskId}/`, { status: newStatus });
       fetchTask();
     } catch (error) {
-      console.log(error);
+      // console.log(error);
+      toast.error("Error changing status, Please try again!")
     }
   };
 
